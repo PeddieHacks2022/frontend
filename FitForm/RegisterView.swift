@@ -8,53 +8,55 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State private var loginInfo = LoginInfo()
+    @State private var signInfo = SignInfo()
     @State private var wrongUsername = 0
     @State private var wrongPassword = 0
-    @State private var isLoggedIn = false
+    @State private var isRegistered = false
     
     var body: some View {
         NavigationView {
             ZStack{
 //                Color.blue.ignoresSafeArea()
                 VStack{
-                    Text("Login")
+                    Text("Register")
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    TextField("Email", text: $loginInfo.email)
+                    TextField("Name", text: $signInfo.name)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUsername))
-                    SecureField("Password", text: $loginInfo.password)
+                    TextField("Email", text: $signInfo.email)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                        .border(.red, width: CGFloat(wrongUsername))
-                    Button("Sign In") {
+                    SecureField("Password", text: $signInfo.password)
+                        .padding()
+                        .frame(width: 300, height: 50)
+                        .background(Color.black.opacity(0.05))
+                        .cornerRadius(10)
+                    Button("Sign Up") {
                         Task{
-                            await APIConstruct.login(loginInfo:loginInfo)
+                            await APIConstruct.register(info:signInfo)
                         }
                         
-                        isLoggedIn = true
+                        isRegistered = true
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
                     
-                    NavigationLink( destination: HomeView(),
-                                    isActive:  $isLoggedIn){
+                    NavigationLink( destination: LoginView(),
+                                    isActive:  $isRegistered){
                         EmptyView()
                     }
                     Spacer()
-                    NavigationLink( destination: RegisterView()){
-                        Text("Register")
+                    NavigationLink( destination: LoginView()){
+                        Text("Login")
                     }.padding(.bottom, 30.0)
-                    
                     
                 }
             }
