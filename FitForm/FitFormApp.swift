@@ -12,6 +12,12 @@ struct FitFormApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
+//            ZStack{
+//
+//                ARViewContainer().edgesIgnoringSafeArea(.all)
+//                Text("SUCK DICK")
+//            }
+            
         }
     }
 }

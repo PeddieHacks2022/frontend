@@ -34,19 +34,21 @@ struct LoginView: View {
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongUsername))
-                    Button("Sign In") {
-                        Task{
+                    Button(
+                        action: {
+                            Task{
                             await construct.login(info:signInfo)
                             isLoggedIn = construct.sessionID != -1
-                        }
-                        
-                        
-                    }
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    
+                            }
+                        }) { Text("Sign In")
+                            .padding()
+                            .foregroundColor(.white)
+                            .frame(width: 300, height: 50)
+                            .contentShape(Rectangle())
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            }
+
                     NavigationLink( destination: HomeView(),
                                     isActive:  $isLoggedIn){
                         EmptyView()

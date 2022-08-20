@@ -37,17 +37,21 @@ struct RegisterView: View {
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
-                    Button("Sign Up") {
-                        Task{
+                    Button(
+                        action: {
+                            Task{
                             await construct.register(info:signInfo)
-                        }
-                        
-                        isRegistered = true
-                    }
-                    .foregroundColor(.white)
-                    .frame(width: 300, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                            isRegistered = true
+                            }
+                        }) { Text("Sign Up")
+                            .padding()
+                            .foregroundColor(.white)
+                            .frame(width: 300, height: 50)
+                            .contentShape(Rectangle())
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            }
+                    
                     
                     NavigationLink( destination: LoginView(),
                                     isActive:  $isRegistered){

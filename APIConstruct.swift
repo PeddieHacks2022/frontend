@@ -20,12 +20,6 @@ class APIConstruct {
     
 
     func initialize() {
-
-        // Hack to wait until everything is set up
-        var x = 0
-        while(x<1000000000) {
-            x+=1
-        }
         connectToUDP(hostUDP,portUDP)
     }
 
