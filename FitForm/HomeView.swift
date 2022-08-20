@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
        
         VStack{
-                NavigationLink(destination: ARViewContainer().edgesIgnoringSafeArea(.all)){
+                NavigationLink(destination: SelectWorkoutView()  ){
                     Text("Start Workout")
             }
         }
