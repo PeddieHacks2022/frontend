@@ -39,7 +39,7 @@ struct RegisterView: View {
                         .cornerRadius(10)
                     Button("Sign Up") {
                         Task{
-                            await APIConstruct.register(info:signInfo)
+                            await construct.register(info:signInfo)
                         }
                         
                         isRegistered = true

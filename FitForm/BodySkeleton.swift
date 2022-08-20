@@ -13,20 +13,25 @@ class BodySkeleton: Entity {
     var joints: [String: Entity] = [:]
     var bones: [String: Entity] = [:]
     var jointsFormatted: [String: [Float]] = [:]
+    var counter = 0;
+    
     
     required init(for bodyAnchor: ARBodyAnchor) {
         super.init()
-        APIConstruct.initialize()
+        construct.initialize()
         for jointName in ARSkeletonDefinition.defaultBody3D.jointNames {
             var jointRadius: Float = 0.05
             var jointColor: UIColor = .green
             
             switch jointName {
-            case "neck_1_joint", "neck_2_joint", "neck_3_joint", "neck_4_joint", "heck_joint", "left_shoulder_1_joint", "right_shoulder_1_joint":
+            case "left_shoulder_1_joint":
+                jointRadius *= 0.5
+                jointColor = .red
+            case "neck_1_joint", "neck_2_joint", "neck_3_joint", "neck_4_joint", "heck_joint", "right_shoulder_1_joint":
                 jointRadius *= 0.5
             case "jaw_joint", "chin_joint", "left_eye_joint", "left_eyeLowerLid_joint", "left_eyeUpperLid_joint",
                 "left_eyeball_joint", "nose_joint", "right_eye_joint", "right_eyeLowerLid_joint", "right_eyeUpperLid_joint", "right_eyeball_joint":
-                jointRadius *= 0.2
+                jointRadius *= 0
                 jointColor = .yellow
             case _ where jointName.hasPrefix("spine_"):
                 jointRadius *= 0.75
@@ -36,6 +41,12 @@ class BodySkeleton: Entity {
             case _ where jointName.hasPrefix("left_hand") || jointName.hasPrefix("right_hand"):
                 jointRadius *= 0.25
                 jointColor = .yellow
+            case "left_arm_joint":
+                jointRadius = 0.05
+                jointColor = .blue
+            case "left_forearm_joint":
+                jointRadius = 0.05
+                jointColor = .black
             default:
                 jointRadius = 0.05
                 jointColor = .green
@@ -79,7 +90,15 @@ class BodySkeleton: Entity {
         }
 
 
-        APIConstruct.sendUDP(encoded)
+        construct.sendUDP(encoded)
+        if counter%5==0{
+            Task{
+                await construct.getReps()
+                print("construct")
+            }
+            
+        }
+        counter+=1
         
         for bone in Bones.allCases {
             let boneName = bone.name
