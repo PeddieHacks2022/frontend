@@ -14,6 +14,12 @@
 		5988B2E728B0808900B0DA4E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2E628B0808900B0DA4E /* HomeView.swift */; };
 		5988B2E928B0904E00B0DA4E /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */; };
 		5988B2EB28B091BA00B0DA4E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2EA28B091BA00B0DA4E /* LoginView.swift */; };
+		835C286B28B09460002662F8 /* BodySkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286A28B09460002662F8 /* BodySkeleton.swift */; };
+		83D7970728B07E1A00D1ED66 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */; };
+		83D7970928B07FB900D1ED66 /* SkeletonJoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */; };
+		83D7970B28B0802E00D1ED66 /* SkeletonBone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */; };
+		83D7970F28B0811300D1ED66 /* Bones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970E28B0811300D1ED66 /* Bones.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +31,11 @@
 		5988B2E628B0808900B0DA4E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
 		5988B2EA28B091BA00B0DA4E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		835C286A28B09460002662F8 /* BodySkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodySkeleton.swift; sourceTree = "<group>"; };
+		83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
+		83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonJoint.swift; sourceTree = "<group>"; };
+		83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonBone.swift; sourceTree = "<group>"; };
+		83D7970E28B0811300D1ED66 /* Bones.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bones.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +71,11 @@
 				5988B2D628B077A500B0DA4E /* FitFormApp.swift */,
 				5988B2E628B0808900B0DA4E /* HomeView.swift */,
 				5988B2D828B077A500B0DA4E /* ContentView.swift */,
+				83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */,
+				83D7970E28B0811300D1ED66 /* Bones.swift */,
+				835C286A28B09460002662F8 /* BodySkeleton.swift */,
+				83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */,
+				83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */,
 				5988B2DA28B077A600B0DA4E /* Assets.xcassets */,
 				5988B2DC28B077A600B0DA4E /* Preview Content */,
 				5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */,
@@ -150,7 +166,13 @@
 				5988B2E728B0808900B0DA4E /* HomeView.swift in Sources */,
 				5988B2D928B077A500B0DA4E /* ContentView.swift in Sources */,
 				5988B2EB28B091BA00B0DA4E /* LoginView.swift in Sources */,
+				835C286B28B09460002662F8 /* BodySkeleton.swift in Sources */,
+				5988B2D928B077A500B0DA4E /* ContentView.swift in Sources */,
+				83D7970F28B0811300D1ED66 /* Bones.swift in Sources */,
+				83D7970B28B0802E00D1ED66 /* SkeletonBone.swift in Sources */,
 				5988B2D728B077A500B0DA4E /* FitFormApp.swift in Sources */,
+				83D7970728B07E1A00D1ED66 /* ARViewContainer.swift in Sources */,
+				83D7970928B07FB900D1ED66 /* SkeletonJoint.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +304,7 @@
 				DEVELOPMENT_TEAM = BGPY27Z453;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "FitForm needs access to the camera to enable body tracking features.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -311,6 +334,7 @@
 				DEVELOPMENT_TEAM = BGPY27Z453;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "FitForm needs access to the camera to enable body tracking features.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
