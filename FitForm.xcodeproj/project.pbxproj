@@ -11,11 +11,15 @@
 		5988B2D928B077A500B0DA4E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2D828B077A500B0DA4E /* ContentView.swift */; };
 		5988B2DB28B077A600B0DA4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5988B2DA28B077A600B0DA4E /* Assets.xcassets */; };
 		5988B2DE28B077A600B0DA4E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5988B2DD28B077A600B0DA4E /* Preview Assets.xcassets */; };
+		5988B2E728B0808900B0DA4E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2E628B0808900B0DA4E /* HomeView.swift */; };
+		5988B2E928B0904E00B0DA4E /* SelectWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */; };
+		5988B2EB28B091BA00B0DA4E /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2EA28B091BA00B0DA4E /* LoginView.swift */; };
 		835C286B28B09460002662F8 /* BodySkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286A28B09460002662F8 /* BodySkeleton.swift */; };
 		83D7970728B07E1A00D1ED66 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */; };
 		83D7970928B07FB900D1ED66 /* SkeletonJoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */; };
 		83D7970B28B0802E00D1ED66 /* SkeletonBone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */; };
 		83D7970F28B0811300D1ED66 /* Bones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970E28B0811300D1ED66 /* Bones.swift */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,9 @@
 		5988B2D828B077A500B0DA4E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5988B2DA28B077A600B0DA4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5988B2DD28B077A600B0DA4E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5988B2E628B0808900B0DA4E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkoutView.swift; sourceTree = "<group>"; };
+		5988B2EA28B091BA00B0DA4E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		835C286A28B09460002662F8 /* BodySkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodySkeleton.swift; sourceTree = "<group>"; };
 		83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
 		83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonJoint.swift; sourceTree = "<group>"; };
@@ -62,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				5988B2D628B077A500B0DA4E /* FitFormApp.swift */,
+				5988B2E628B0808900B0DA4E /* HomeView.swift */,
 				5988B2D828B077A500B0DA4E /* ContentView.swift */,
 				83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */,
 				83D7970E28B0811300D1ED66 /* Bones.swift */,
@@ -70,6 +78,8 @@
 				83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */,
 				5988B2DA28B077A600B0DA4E /* Assets.xcassets */,
 				5988B2DC28B077A600B0DA4E /* Preview Content */,
+				5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */,
+				5988B2EA28B091BA00B0DA4E /* LoginView.swift */,
 			);
 			path = FitForm;
 			sourceTree = "<group>";
@@ -152,6 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5988B2E928B0904E00B0DA4E /* SelectWorkoutView.swift in Sources */,
+				5988B2E728B0808900B0DA4E /* HomeView.swift in Sources */,
+				5988B2D928B077A500B0DA4E /* ContentView.swift in Sources */,
+				5988B2EB28B091BA00B0DA4E /* LoginView.swift in Sources */,
 				835C286B28B09460002662F8 /* BodySkeleton.swift in Sources */,
 				5988B2D928B077A500B0DA4E /* ContentView.swift in Sources */,
 				83D7970F28B0811300D1ED66 /* Bones.swift in Sources */,
