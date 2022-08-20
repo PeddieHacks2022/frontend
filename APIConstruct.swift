@@ -7,6 +7,7 @@
 
 import UIKit
 import Network
+import AVFAudio
 
 class APIConstruct {
     
@@ -18,8 +19,11 @@ class APIConstruct {
     var sessionID = -1
     var reps = 0
     
+    
+    
 
     func initialize() {
+        
         connectToUDP(hostUDP,portUDP)
     }
 
@@ -170,7 +174,7 @@ class APIConstruct {
         
         
     }
-    func getReps() async {
+    func pollReps() async {
         guard let encoded = try? JSONEncoder().encode(["ID":sessionID]) else {
             print("Failed to encode register info")
             return
@@ -186,7 +190,6 @@ class APIConstruct {
                     var change = responseJSON["change"] as! String
                     if change != "nothing"{
                         reps+=1
-                        print(reps)
                     }
                 }
         }

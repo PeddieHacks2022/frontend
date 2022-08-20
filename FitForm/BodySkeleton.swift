@@ -16,9 +16,12 @@ class BodySkeleton: Entity {
     var counter = 0;
     
     
+    
     required init(for bodyAnchor: ARBodyAnchor) {
         super.init()
         construct.initialize()
+        controller.initialize(workouts: [])
+        
         for jointName in ARSkeletonDefinition.defaultBody3D.jointNames {
             var jointRadius: Float = 0.05
             var jointColor: UIColor = .green
@@ -91,9 +94,10 @@ class BodySkeleton: Entity {
 
 
         construct.sendUDP(encoded)
+        controller.update()
         if counter%5==0{
             Task{
-                await construct.getReps()
+                await construct.pollReps()
                 print("construct")
             }
             
