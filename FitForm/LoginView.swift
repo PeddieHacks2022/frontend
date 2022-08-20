@@ -22,7 +22,7 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    TextField("Username", text: $loginInfo.username)
+                    TextField("Email", text: $loginInfo.email)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
@@ -36,7 +36,7 @@ struct LoginView: View {
                         .border(.red, width: CGFloat(wrongUsername))
                     Button("Sign In") {
                         Task{
-                            await login()
+                            await APIConstruct.login(loginInfo:loginInfo)
                         }
                         
                         isLoggedIn = true
@@ -61,28 +61,7 @@ struct LoginView: View {
         }
         .navigationBarHidden(true)
     }
-    /// Authenticate with API and login
-    func login() async {
-        
-        guard let encoded = try? JSONEncoder().encode(loginInfo) else {
-            
-            print("Failed to encode login info")
-            return
-        }
-        let url = URL(string: "localhost:5000/signup")!
-        var request = URLRequest(url:url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        do {
-            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
-            print(data)
-            
-        }
-        catch {
-            print("Login Failed")
-        }
-        
-    }
+    
     
 }
 

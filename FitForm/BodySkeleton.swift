@@ -72,8 +72,14 @@ class BodySkeleton: Entity {
                 jointsFormatted[jointName] = [jointEntity.position.x, jointEntity.position.y, jointEntity.position.z]
             }
         }
-        
-        print(jointsFormatted)
+//        guard let encoded = try? JSONEncoder().encode(jointsFormatted) else {
+//
+//            print("Failed to encode login info")
+//            return
+//        }
+//
+//
+//        APIConstruct.sendUDP(encoded)
         
         for bone in Bones.allCases {
             let boneName = bone.name
