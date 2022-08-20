@@ -40,16 +40,16 @@ struct RegisterView: View {
                     Button("Sign Up") {
                         Task{
                             await construct.register(info:signInfo)
+                            isRegistered = construct.sessionID != -1
                         }
                         
-                        isRegistered = true
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
                     .background(Color.blue)
                     .cornerRadius(10)
                     
-                    NavigationLink( destination: LoginView(),
+                    NavigationLink( destination: HomeView(),
                                     isActive:  $isRegistered){
                         EmptyView()
                     }
