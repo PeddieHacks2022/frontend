@@ -8,11 +8,12 @@
 import SwiftUI
 
 class WorkoutTemplate: APIData {
+    var name: String
     var repCount: Int
     var type: String
     var weight: Int // in pounds
-    init(repCount:Int,type:String,weight:Int) {
-        
+    init(name:String, repCount:Int,type:String,weight:Int) {
+        self.name = name
         self.repCount = repCount
         self.type = type
         self.weight = weight
@@ -23,6 +24,7 @@ class WorkoutTemplate: APIData {
         case repCount
         case type
         case weight
+        case name
         }
     
     required init(from decoder: Decoder) throws {
@@ -31,6 +33,7 @@ class WorkoutTemplate: APIData {
         
         repCount = try values.decode(Int.self, forKey: .repCount)
         type = try values.decode(String.self, forKey: .type)
+        name = try values.decode(String.self, forKey: .name)
         weight = try values.decode(Int.self, forKey: .weight)
         super.init()
         
@@ -39,7 +42,7 @@ class WorkoutTemplate: APIData {
 
 struct SelectWorkoutView: View {
     @State private var panelState : String = "Select"
-    @State private var createPopup : Bool = true
+    @State private var createPopup : Bool = false
     
     // Create Workout States
     @State private var selectedType = "Bicep Curl"
@@ -116,11 +119,18 @@ struct SelectWorkoutView: View {
             .padding(.leading)
             .frame(maxWidth: .infinity)
         Spacer()
-        }.padding(.vertical)
+        }
     }
     
     func createWorkout() {
-        print("Create Workout")
+        Task{
+            var w = 0
+            if weight != ""{
+                w = Int(weight)!
+            }
+            await construct.createWorkout(data: WorkoutTemplate.init(name: workoutName, repCount: Int(amountReps)!, type: selectedType, weight: w))
+            createPopup = false
+        }
     }
 }
 
