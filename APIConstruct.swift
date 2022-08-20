@@ -16,6 +16,7 @@ class APIConstruct {
     var portUDP: NWEndpoint.Port = 8001
     var host: String = "http://192.168.2.100:8000"
     var sessionID = -1
+    var reps = 0
     
 
     func initialize() {
@@ -184,11 +185,14 @@ class APIConstruct {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         do {
-            print(encoded)
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
                 if let responseJSON = responseJSON as? [String: Any] {
-                    print("change: "+(responseJSON["change"] as! String))
+                    var change = responseJSON["change"] as! String
+                    if change != "nothing"{
+                        reps+=1
+                        print(reps)
+                    }
                 }
         }
         
