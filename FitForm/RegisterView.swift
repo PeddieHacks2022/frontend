@@ -41,7 +41,7 @@ struct RegisterView: View {
                         action: {
                             Task{
                             await construct.register(info:signInfo)
-                            isRegistered = true
+                            isRegistered = construct.sessionID != -1
                             }
                         }) { Text("Sign Up")
                             .padding()
@@ -53,7 +53,7 @@ struct RegisterView: View {
                             }
                     
                     
-                    NavigationLink( destination: LoginView(),
+                    NavigationLink( destination: HomeView(),
                                     isActive:  $isRegistered){
                         EmptyView()
                     }
