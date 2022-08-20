@@ -12,6 +12,7 @@ import ARKit
 class BodySkeleton: Entity {
     var joints: [String: Entity] = [:]
     var bones: [String: Entity] = [:]
+    var jointsFormatted: [String: [Float]] = [:]
     
     required init(for bodyAnchor: ARBodyAnchor) {
         super.init()
@@ -68,9 +69,11 @@ class BodySkeleton: Entity {
                 let jointEntityOffsetFromRoot = simd_make_float3(jointEntityTransform.columns.3)
                 jointEntity.position = jointEntityOffsetFromRoot + rootPosition
                 jointEntity.orientation = Transform(matrix: jointEntityTransform).rotation
-                
+                jointsFormatted[jointName] = [jointEntity.position.x, jointEntity.position.y, jointEntity.position.z]
             }
         }
+        
+        print(jointsFormatted)
         
         for bone in Bones.allCases {
             let boneName = bone.name
