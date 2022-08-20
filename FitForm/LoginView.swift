@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var loginInfo = LoginInfo()
+    @State private var signInfo = SignInfo()
     @State private var wrongUsername = 0
     @State private var wrongPassword = 0
     @State private var isLoggedIn = false
@@ -22,13 +22,13 @@ struct LoginView: View {
                         .font(.largeTitle)
                         .bold()
                         .padding()
-                    TextField("Email", text: $loginInfo.email)
+                    TextField("Email", text: $signInfo.email)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
                         .cornerRadius(10)
                         .border(.red, width: CGFloat(wrongUsername))
-                    SecureField("Password", text: $loginInfo.password)
+                    SecureField("Password", text: $signInfo.password)
                         .padding()
                         .frame(width: 300, height: 50)
                         .background(Color.black.opacity(0.05))
@@ -36,10 +36,10 @@ struct LoginView: View {
                         .border(.red, width: CGFloat(wrongUsername))
                     Button("Sign In") {
                         Task{
-                            await APIConstruct.login(loginInfo:loginInfo)
+                            await APIConstruct.login(info:signInfo)
                         }
                         
-                        isLoggedIn = true
+                        isLoggedIn = APIConstruct.sessionID != -1
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)

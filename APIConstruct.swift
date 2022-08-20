@@ -14,6 +14,7 @@ class APIConstruct {
     static var hostUDP: NWEndpoint.Host = "192.168.2.100"
     static var portUDP: NWEndpoint.Port = 8001
     static var host: String = "http://192.168.2.100:8000"
+    static var sessionID = -1
     
 
     static func initialize() {
@@ -92,9 +93,9 @@ class APIConstruct {
         }
     }
     /// Authenticate with API and login
-    static func login(loginInfo: LoginInfo) async {
+    static func login(info: SignInfo) async {
         
-        guard let encoded = try? JSONEncoder().encode(loginInfo) else {
+        guard let encoded = try? JSONEncoder().encode(info) else {
             
             print("Failed to encode login info")
             return
@@ -110,6 +111,7 @@ class APIConstruct {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
                 if let responseJSON = responseJSON as? [String: Any] {
                     print(responseJSON)
+                    sessionID = responseJSON["ID"] as! Int
                 }
 
             
@@ -121,12 +123,32 @@ class APIConstruct {
         }
         
     }
+    static func register(info: SignInfo) async {
+        guard let encoded = try? JSONEncoder().encode(info) else {
+            print("Failed to encode register info")
+            return
+        }
+        let url = URL(string: APIConstruct.host+"/signup")!
+        var request = URLRequest(url:url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        do {
+            print(encoded)
+            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print(responseJSON)
+                }
+        }
+        catch {
+            print("Login Failed")
+        }
+        
+        
+    }
 }
-struct LoginInfo : Codable {
-    var email = ""
-    var password = ""
-}
-struct RegisterInfo : Codable {
+
+struct SignInfo : Codable {
     var name = ""
     var email = ""
     var password = ""
