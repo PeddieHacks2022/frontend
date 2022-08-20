@@ -9,37 +9,39 @@ import UIKit
 import Network
 
 class APIConstruct {
-
-    static var connection: NWConnection?
-    static var hostUDP: NWEndpoint.Host = "192.168.2.100"
-    static var portUDP: NWEndpoint.Port = 8001
-    static var host: String = "http://192.168.2.100:8000"
-    static var sessionID = -1
     
 
-    static func initialize() {
+    var connection: NWConnection?
+    var hostUDP: NWEndpoint.Host = "192.168.2.100"
+    var portUDP: NWEndpoint.Port = 8001
+    var host: String = "http://192.168.2.100:8000"
+    var sessionID = -1
+    var reps = 0
+    
+
+    func initialize() {
 
         // Hack to wait until everything is set up
         var x = 0
         while(x<1000000000) {
             x+=1
         }
-        connectToUDP(APIConstruct.hostUDP,APIConstruct.portUDP)
+        connectToUDP(hostUDP,portUDP)
     }
 
-    static func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
+    func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
         // Transmited message:
-        let messageToUDP = "Test message"
+        let messageToUDP: String = String(sessionID)+" "+String(1)
 
-        APIConstruct.connection = NWConnection(host: APIConstruct.hostUDP, port: APIConstruct.portUDP, using: .udp)
+        self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
 
-        APIConstruct.connection?.stateUpdateHandler = { (newState) in
+        self.connection?.stateUpdateHandler = { (newState) in
             print("This is stateUpdateHandler:")
             switch (newState) {
                 case .ready:
                     print("State: Ready\n")
-                    APIConstruct.sendUDP(messageToUDP)
-                    APIConstruct.receiveUDP()
+                self.sendUDP(messageToUDP)
+                self.receiveUDP()
                 case .setup:
                     print("State: Setup\n")
                 case .cancelled:
@@ -51,27 +53,24 @@ class APIConstruct {
             }
         }
 
-        APIConstruct.connection?.start(queue: .global())
+        connection?.start(queue: .global())
     }
 
-    static func sendUDP(_ content: Data) {
-        print(APIConstruct.connection)
-        APIConstruct.connection?.send(content: content, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
+    func sendUDP(_ content: Data) {
+        connection?.send(content: content, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
             if (NWError == nil) {
-                print("Data was sent to UDP")
+                //print("Data was sent to UDP")
             } else {
                 print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
             }
         })))
     }
 
-    static func sendUDP(_ content: String) {
+    func sendUDP(_ content: String) {
         let contentToSendUDP = content.data(using: String.Encoding.utf8)
-        print(contentToSendUDP)
-        print(APIConstruct.connection)
-        APIConstruct.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
+        connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
             if (NWError == nil) {
-                print("Data was sent to UDP")
+                //print("Data was sent to UDP")
             } else {
                 print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
             }
@@ -79,8 +78,8 @@ class APIConstruct {
         
     }
 
-    static func receiveUDP() {
-        APIConstruct.connection?.receiveMessage { (data, context, isComplete, error) in
+    func receiveUDP() {
+        connection?.receiveMessage { (data, context, isComplete, error) in
             if (isComplete) {
                 print("Receive is complete")
                 if (data != nil) {
@@ -93,15 +92,15 @@ class APIConstruct {
         }
     }
     /// Authenticate with API and login
-    static func login(info: SignInfo) async {
+    func login(info: SignInfo) async {
         
         guard let encoded = try? JSONEncoder().encode(info) else {
             
             print("Failed to encode login info")
             return
         }
-        print(APIConstruct.host+"/signin")
-        let url = URL(string: APIConstruct.host+"/signin")!
+        print(host+"/signin")
+        let url = URL(string: host + "/signin")!
         var request = URLRequest(url:url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -123,12 +122,13 @@ class APIConstruct {
         }
         
     }
-    static func register(info: SignInfo) async {
+    
+    func register(info: SignInfo) async {
         guard let encoded = try? JSONEncoder().encode(info) else {
             print("Failed to encode register info")
             return
         }
-        let url = URL(string: APIConstruct.host+"/signup")!
+        let url = URL(string: host+"/signup")!
         var request = URLRequest(url:url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
@@ -146,9 +146,110 @@ class APIConstruct {
         
         
     }
+    func createWorkout(data: WorkoutTemplate) async {
+        guard let encoded = try? JSONEncoder().encode(WithSession(sessionID: sessionID, data: data)) else {
+            
+            print("Failed to encode login info")
+            return
+        }
+        let url = URL(string: host + "/createWorkout")!
+        var request = URLRequest(url:url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        do {
+            print(encoded)
+            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print(responseJSON)
+                }
+
+            
+
+            
+        }
+        catch {
+            print("Login Failed")
+        }
+        
+        
+        
+    }
+    func getReps() async {
+        guard let encoded = try? JSONEncoder().encode(["ID":sessionID]) else {
+            print("Failed to encode register info")
+            return
+        }
+        let url = URL(string: host + "/udp/update")!
+        var request = URLRequest(url:url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        do {
+            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    var change = responseJSON["change"] as! String
+                    if change != "nothing"{
+                        reps+=1
+                        print(reps)
+                    }
+                }
+        }
+        
+        catch {
+            print("Login Failed")
+        }
+        
+    }
+    func getWorkouts() async {
+        let url = URL(string: host + "/getWorkouts")!
+        var request = URLRequest(url:url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+//        do {
+//
+//            let (data, _) = try await URLSession.shared.download(for: request)
+//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+//                if let responseJSON = responseJSON as? [String: Any] {
+//                    print(responseJSON)
+//                }
+//
+//
+//
+//
+//        }
+//        catch {
+//            print("Login Failed")
+//        }
+        
+        
+        
+        
+    }
+    
 }
 
-struct SignInfo : Codable {
+var construct = APIConstruct()
+class APIData: Codable{
+    
+}
+class WithSession: APIData{
+    var sessionID: Int
+    var data: APIData
+    init(sessionID:Int,data:APIData) {
+        self.sessionID = sessionID
+        self.data = data
+        super.init()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+    
+    
+}
+
+class SignInfo : Encodable {
     var name = ""
     var email = ""
     var password = ""

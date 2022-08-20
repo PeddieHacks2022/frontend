@@ -36,10 +36,11 @@ struct LoginView: View {
                         .border(.red, width: CGFloat(wrongUsername))
                     Button("Sign In") {
                         Task{
-                            await APIConstruct.login(info:signInfo)
+                            await construct.login(info:signInfo)
+                            isLoggedIn = construct.sessionID != -1
                         }
                         
-                        isLoggedIn = APIConstruct.sessionID != -1
+                        
                     }
                     .foregroundColor(.white)
                     .frame(width: 300, height: 50)
