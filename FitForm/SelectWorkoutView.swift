@@ -6,14 +6,8 @@
 //
 
 import SwiftUI
-struct WorkoutRequest : Decodable{
-    var id: Int
-    var name: String
-    var workoutType: String
-    var reps: Int
-    var createdDate: String
-}
-class WorkoutTemplate: Codable {
+
+class WorkoutTemplate: APIData {
     var name: String
     var repCount: Int
     var type: String
@@ -23,6 +17,8 @@ class WorkoutTemplate: Codable {
         self.repCount = repCount
         self.type = type
         self.weight = weight
+        super.init()
+        
     }
     enum CodingKeys: String, CodingKey {
         case repCount
@@ -38,7 +34,9 @@ class WorkoutTemplate: Codable {
         repCount = try values.decode(Int.self, forKey: .repCount)
         type = try values.decode(String.self, forKey: .type)
         name = try values.decode(String.self, forKey: .name)
-        weight = try values.decode(Int.self, forKey: .weight)        
+        weight = try values.decode(Int.self, forKey: .weight)
+        super.init()
+        
     }
 }
 
@@ -121,14 +119,9 @@ struct SelectWorkoutView: View {
             .padding(.leading)
             .frame(maxWidth: .infinity)
         Spacer()
-        }.onAppear{getWorkouts()}
-    }
-    func getWorkouts() {
-        print("Fetching workouts")
-        Task {
-         await construct.getWorkouts()
         }
     }
+    
     func createWorkout() {
         Task{
             var w = 0
