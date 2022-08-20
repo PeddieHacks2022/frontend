@@ -8,16 +8,15 @@
 import UIKit
 import Network
 
-class APIConstruct: UIViewController {
+class APIConstruct {
 
     static var connection: NWConnection?
-    static var hostUDP: NWEndpoint.Host = "http://192.168.2.100"
+    static var hostUDP: NWEndpoint.Host = "192.168.2.100"
     static var portUDP: NWEndpoint.Port = 8001
     static var host: String = "http://192.168.2.100:8000"
     
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    static func initialize() {
 
         // Hack to wait until everything is set up
         var x = 0
@@ -27,7 +26,7 @@ class APIConstruct: UIViewController {
         connectToUDP(APIConstruct.hostUDP,APIConstruct.portUDP)
     }
 
-    func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
+    static func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
         // Transmited message:
         let messageToUDP = "Test message"
 
@@ -38,8 +37,8 @@ class APIConstruct: UIViewController {
             switch (newState) {
                 case .ready:
                     print("State: Ready\n")
-                APIConstruct.sendUDP(messageToUDP)
-                    self.receiveUDP()
+                    APIConstruct.sendUDP(messageToUDP)
+                    APIConstruct.receiveUDP()
                 case .setup:
                     print("State: Setup\n")
                 case .cancelled:
@@ -55,6 +54,7 @@ class APIConstruct: UIViewController {
     }
 
     static func sendUDP(_ content: Data) {
+        print(APIConstruct.connection)
         APIConstruct.connection?.send(content: content, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
             if (NWError == nil) {
                 print("Data was sent to UDP")
@@ -66,6 +66,8 @@ class APIConstruct: UIViewController {
 
     static func sendUDP(_ content: String) {
         let contentToSendUDP = content.data(using: String.Encoding.utf8)
+        print(contentToSendUDP)
+        print(APIConstruct.connection)
         APIConstruct.connection?.send(content: contentToSendUDP, completion: NWConnection.SendCompletion.contentProcessed(({ (NWError) in
             if (NWError == nil) {
                 print("Data was sent to UDP")
@@ -73,9 +75,10 @@ class APIConstruct: UIViewController {
                 print("ERROR! Error when data (Type: Data) sending. NWError: \n \(NWError!)")
             }
         })))
+        
     }
 
-    func receiveUDP() {
+    static func receiveUDP() {
         APIConstruct.connection?.receiveMessage { (data, context, isComplete, error) in
             if (isComplete) {
                 print("Receive is complete")
