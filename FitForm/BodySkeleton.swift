@@ -16,7 +16,7 @@ class BodySkeleton: Entity {
     
     required init(for bodyAnchor: ARBodyAnchor) {
         super.init()
-        
+        APIConstruct.initialize()
         for jointName in ARSkeletonDefinition.defaultBody3D.jointNames {
             var jointRadius: Float = 0.05
             var jointColor: UIColor = .green
@@ -72,14 +72,14 @@ class BodySkeleton: Entity {
                 jointsFormatted[jointName] = [jointEntity.position.x, jointEntity.position.y, jointEntity.position.z]
             }
         }
-//        guard let encoded = try? JSONEncoder().encode(jointsFormatted) else {
-//
-//            print("Failed to encode login info")
-//            return
-//        }
-//
-//
-//        APIConstruct.sendUDP(encoded)
+        guard let encoded = try? JSONEncoder().encode(jointsFormatted) else {
+
+            print("Failed to encode login info")
+            return
+        }
+
+
+        APIConstruct.sendUDP(encoded)
         
         for bone in Bones.allCases {
             let boneName = bone.name
