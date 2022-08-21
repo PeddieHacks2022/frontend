@@ -6,7 +6,13 @@
 //
 
 import SwiftUI
-struct WorkoutRequest: Decodable {
+
+struct RoutinePostBody: Encodable {
+    var name: String
+    var workoutIDs: [String]
+}
+
+struct WorkoutRequest: Decodable, Hashable {
     var id: Int
     var name: String
     var workoutType: String
@@ -61,6 +67,7 @@ struct SelectWorkoutView: View {
 
     // Create Routine Stated
     @State private var routineName = ""
+    @State private var selectedWorkouts: [String] = []
 
     var workoutTypes = ["Bicep Curl", "Jumping Jacks"]
 
@@ -145,8 +152,19 @@ struct SelectWorkoutView: View {
                                         TextField("My Routine", text: $routineName).multilineTextAlignment(.trailing)
                                     }
                                 }
+
+                                ForEach(selectedWorkouts.indices, id: \.self) { index in
+                                    Picker("Workout \(index + 1)", selection: $selectedWorkouts[index]) {
+                                        ForEach(workoutList, id: \.self) { workout in
+                                            Text(workout.name).tag(String(workout.id))
+                                        }
+                                    }
+                                }
                                 Section {
-                                    Button("Create", action: createRoutine).disabled(workoutName == "")
+                                    Button("Add", action: addWorkoutToRoutine)
+                                }
+                                Section {
+                                    Button("Create", action: createRoutine).disabled(routineName == "")
                                 }
 
                             }.navigationBarTitleDisplayMode(.inline)
@@ -218,8 +236,18 @@ struct SelectWorkoutView: View {
     }
 
     func createRoutine() {
-        createPopup = false
-        createRoutinePopup = false
+        Task {
+            await construct.createRoutine(body: RoutinePostBody(name: routineName, workoutIDs: selectedWorkouts))
+            createPopup = false
+            createRoutinePopup = false
+        }
+    }
+
+    func addWorkoutToRoutine() {
+        print("adding workout to routine")
+        var newSelectedWorkouts = selectedWorkouts
+        newSelectedWorkouts.append("")
+        selectedWorkouts = newSelectedWorkouts
     }
 }
 
