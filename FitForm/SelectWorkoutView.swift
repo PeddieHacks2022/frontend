@@ -55,7 +55,7 @@ struct SelectWorkoutView: View {
     @State private var weight = ""
     @State private var workoutName = ""
 
-    var workoutTypes = ["Bicep Curl", "Jumping Jacks"]
+    var workoutTypes = ["Bicep Curl", "Left Bicep Curl", "Alternating Bicep Curl", "Right Bicep Curl", "Jumping Jacks", "Push Up", "Sit Up"]
 
     var body: some View {
         VStack {
@@ -124,6 +124,8 @@ struct SelectWorkoutView: View {
                     Button(action: {
                         print(workout.id)
                         construct.workoutId = workout.id
+                        construct.initialize()
+                        controller.initialize()
                         redirect = true
                     }) {
                         HStack {
