@@ -17,8 +17,8 @@ class APIConstruct {
     var portUDP: NWEndpoint.Port = 8001
     var host: String = "http://192.168.2.100:8000"
     var sessionID = -1
-    
-    
+
+    var workoutId = -1
     
 
     func initialize() {
@@ -28,7 +28,7 @@ class APIConstruct {
 
     func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
         // Transmited message:
-        let messageToUDP: String = String(sessionID)+" "+String(1)
+        let messageToUDP: String = String(sessionID)+" "+String(workoutId)
 
         self.connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
 
@@ -145,33 +145,32 @@ class APIConstruct {
         
     }
     func createWorkout(data: WorkoutTemplate) async {
-        guard let encoded = try? JSONEncoder().encode(WithSession(sessionID: sessionID, data: data)) else {
+        guard let encoded = try? JSONEncoder().encode(data) else {
             
             print("Failed to encode login info")
             return
         }
-        let url = URL(string: host + "/createWorkout")!
+        print(data.weight)
+        print(data.name)
+        print(data.type)
+        let url = URL(string: host + "/user/" + String(sessionID) + "/workout")!
         var request = URLRequest(url:url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         do {
             print(encoded)
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+            print(data)
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
                 if let responseJSON = responseJSON as? [String: Any] {
                     print(responseJSON)
+                } else {
+                    print ("Response Failed")
                 }
-
-            
-
-            
         }
         catch {
-            print("Login Failed")
+            print("Create workout failed")
         }
-        
-        
-        
     }
     func pollReps() async -> [String: Any]{
         guard let encoded = try? JSONEncoder().encode(["ID":sessionID]) else {
@@ -197,29 +196,31 @@ class APIConstruct {
         
     }
     func getWorkouts() async {
-        let url = URL(string: host + "/getWorkouts")!
+        let url = URL(string: host + "/user/" + String(sessionID) + "/workout")!
         var request = URLRequest(url:url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
-//        do {
-//
-//            let (data, _) = try await URLSession.shared.download(for: request)
-//            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-//                if let responseJSON = responseJSON as? [String: Any] {
-//                    print(responseJSON)
-//                }
-//
-//
-//
-//
-//        }
-//        catch {
-//            print("Login Failed")
-//        }
-        
-        
-        
-        
+        var finalResult: [WorkoutRequest] = [];
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let result = try decoder.decode([String: [WorkoutRequest]].self, from: data!)
+                print(result)
+                finalResult = result["workouts"]!
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        }
+        task.resume()
     }
     
 }
