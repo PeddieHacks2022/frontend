@@ -3,7 +3,7 @@
 BOLD='\033[1;36m'
 YELLOW_BOLD='\033[1;33m'
 NC='\033[0m'
-if ! command -v swiftformat &> /dev/null
+if command -v swiftformat &> /dev/null
 then
     printf "${BOLD}[PRE-COMMIT]${NC} formatting code...\n"
     swiftformat .
