@@ -16,12 +16,15 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             ZStack {
-//                Color.blue.ignoresSafeArea()
+                Color.orange.ignoresSafeArea()
                 VStack {
-                    Text("Login")
+                    Text("Welcome back.")
                         .font(.largeTitle)
                         .bold()
-                        .padding()
+                        .foregroundColor(.white)
+                    Text("it's great to see you again")
+                        .foregroundColor(.white)
+                        .padding(.bottom)
                     TextField("Email", text: $signInfo.email)
                         .padding()
                         .frame(width: 300, height: 50)
@@ -40,12 +43,12 @@ struct LoginView: View {
                                 await construct.login(info: signInfo)
                                 isLoggedIn = construct.sessionID != -1
                             }
-                        }) { Text("Sign In")
+                        }) { Text("Login")
                             .padding()
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .frame(width: 300, height: 50)
                             .contentShape(Rectangle())
-                            .background(Color.blue)
+                            .background(Color.white)
                             .cornerRadius(10)
                         }
 
@@ -55,7 +58,7 @@ struct LoginView: View {
                     }
                     Spacer()
                     NavigationLink(destination: RegisterView()) {
-                        Text("Register")
+                        Text("Don't have an account?").foregroundColor(.black)
                     }.padding(.bottom, 30.0)
                 }
             }

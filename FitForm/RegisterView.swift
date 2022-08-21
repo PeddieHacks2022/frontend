@@ -16,12 +16,15 @@ struct RegisterView: View {
     var body: some View {
         NavigationView {
             ZStack {
-//                Color.blue.ignoresSafeArea()
+                Color.cyan.ignoresSafeArea()
                 VStack {
-                    Text("Register")
+                    Text("Join FitForm.")
                         .font(.largeTitle)
                         .bold()
-                        .padding()
+                        .foregroundColor(.white)
+                    Text("you're going to love it here")
+                        .foregroundColor(.white)
+                        .padding(.bottom)
                     TextField("Name", text: $signInfo.name)
                         .padding()
                         .frame(width: 300, height: 50)
@@ -43,12 +46,12 @@ struct RegisterView: View {
                                 await construct.register(info: signInfo)
                                 isRegistered = construct.sessionID != -1
                             }
-                        }) { Text("Sign Up")
+                        }) { Text("Register")
                             .padding()
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .frame(width: 300, height: 50)
                             .contentShape(Rectangle())
-                            .background(Color.blue)
+                            .background(Color.white)
                             .cornerRadius(10)
                         }
 
@@ -58,7 +61,7 @@ struct RegisterView: View {
                     }
                     Spacer()
                     NavigationLink(destination: LoginView()) {
-                        Text("Login")
+                        Text("Already have an account?").foregroundColor(.black)
                     }.padding(.bottom, 30.0)
                 }
             }

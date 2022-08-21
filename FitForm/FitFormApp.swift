@@ -12,6 +12,7 @@ struct FitFormApp: App {
     var body: some Scene {
         WindowGroup {
             SplashView()
+            /* LoginView() */
             /* SelectWorkoutView() */
 //            ZStack{
 //
