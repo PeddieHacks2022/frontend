@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+// Splash Screen that displays logo
 struct SplashView: View {
     @State var isActive: Bool = false
 

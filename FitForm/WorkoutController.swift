@@ -7,6 +7,9 @@
 
 import AVKit
 import Foundation
+
+// Controls the Sound functionalities of the rep counter
+// update is called in BodySkeleton update
 class WorkoutController {
     var audioPlayer: AVAudioPlayer!
     let dingSound = Bundle.main.path(forResource: "ding-sound-effect_2", ofType: "mp3")

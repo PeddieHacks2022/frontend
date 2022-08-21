@@ -11,7 +11,7 @@ import SwiftUI
 
 private var bodySkeleton: BodySkeleton?
 private let bodySkeletonAnchor = AnchorEntity()
-
+// View Container that displays the AR bone
 struct ARViewContainer: UIViewRepresentable {
     typealias UIViewType = ARView
 

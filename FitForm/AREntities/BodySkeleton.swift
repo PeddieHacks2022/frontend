@@ -8,7 +8,8 @@
 import ARKit
 import Foundation
 import RealityKit
-
+// The BodySkeleton which is shown through the AR Video
+// The update is used for the udp functionality and sending the data every frame
 class BodySkeleton: Entity {
     var joints: [String: Entity] = [:]
     var bones: [String: Entity] = [:]

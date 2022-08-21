@@ -19,7 +19,6 @@
 		5988B2F828B19E0500B0DA4E /* WorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2F728B19E0500B0DA4E /* WorkoutController.swift */; };
 		5988B2FE28B1D03300B0DA4E /* ding-sound-effect_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5988B2FD28B1D03300B0DA4E /* ding-sound-effect_2.mp3 */; };
 		5988B30028B1F1D500B0DA4E /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2FF28B1F1D500B0DA4E /* StatView.swift */; };
-		5988B30228B1FA8F00B0DA4E /* chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5988B30128B1FA8F00B0DA4E /* chart.png */; };
 		5988B30428B203B100B0DA4E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B30328B203B100B0DA4E /* SplashView.swift */; };
 		835C286B28B09460002662F8 /* BodySkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286A28B09460002662F8 /* BodySkeleton.swift */; };
 		835C286F28B0B3D7002662F8 /* APIConstruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286E28B0B3D7002662F8 /* APIConstruct.swift */; };
@@ -43,7 +42,6 @@
 		5988B2F728B19E0500B0DA4E /* WorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutController.swift; sourceTree = "<group>"; };
 		5988B2FD28B1D03300B0DA4E /* ding-sound-effect_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ding-sound-effect_2.mp3"; sourceTree = "<group>"; };
 		5988B2FF28B1F1D500B0DA4E /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
-		5988B30128B1FA8F00B0DA4E /* chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chart.png; sourceTree = "<group>"; };
 		5988B30328B203B100B0DA4E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		835C286A28B09460002662F8 /* BodySkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodySkeleton.swift; sourceTree = "<group>"; };
 		835C286E28B0B3D7002662F8 /* APIConstruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstruct.swift; sourceTree = "<group>"; };
@@ -88,7 +86,6 @@
 				5988B2D628B077A500B0DA4E /* FitFormApp.swift */,
 				5988B30528B2526100B0DA4E /* Views */,
 				5988B2FD28B1D03300B0DA4E /* ding-sound-effect_2.mp3 */,
-				5988B30128B1FA8F00B0DA4E /* chart.png */,
 				5988B2DA28B077A600B0DA4E /* Assets.xcassets */,
 				5988B2F728B19E0500B0DA4E /* WorkoutController.swift */,
 				5988B2DC28B077A600B0DA4E /* Preview Content */,
@@ -191,7 +188,6 @@
 			files = (
 				5988B2DE28B077A600B0DA4E /* Preview Assets.xcassets in Resources */,
 				5988B2FE28B1D03300B0DA4E /* ding-sound-effect_2.mp3 in Resources */,
-				5988B30228B1FA8F00B0DA4E /* chart.png in Resources */,
 				5988B2DB28B077A600B0DA4E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,7 @@ import AVFAudio
 import Network
 import UIKit
 
+// API singleton that makes all calls to backend including UDP connections
 class APIConstruct {
     var connection: NWConnection?
     var hostUDP: NWEndpoint.Host = "192.168.2.100"
@@ -322,7 +323,6 @@ class APIConstruct {
     }
 }
 
-var construct = APIConstruct()
 class APIData: Codable {}
 
 class WithSession: APIData {
@@ -344,3 +344,5 @@ class SignInfo: Encodable {
     var email = ""
     var password = ""
 }
+
+var construct = APIConstruct()

@@ -12,13 +12,6 @@ struct FitFormApp: App {
     var body: some Scene {
         WindowGroup {
             SplashView()
-            /* LoginView() */
-            /* SelectWorkoutView() */
-//            ZStack{
-//
-//                ARViewContainer().edgesIgnoringSafeArea(.all)
-//                Text("SUCK DICK")
-//            }
         }
     }
 }

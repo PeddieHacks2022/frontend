@@ -7,6 +7,7 @@
 
 import AVKit
 import SwiftUI
+// View Container holding the ARView
 struct WorkoutView: View {
     @State var redirect = false
 
