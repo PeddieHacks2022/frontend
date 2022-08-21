@@ -1,4 +1,3 @@
-
 # FitForm frontend
 
 ## SETTING UP FOR DEVELOPMENT
