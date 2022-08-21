@@ -139,7 +139,7 @@ struct SelectWorkoutView: View {
                                     .multilineTextAlignment(.leading)
                             }
                             Spacer()
-                            Text("Insert Image")
+                            Text(workout.workoutType)
                         }
                         .padding(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/).border(.orange, width: 2)
                     }.buttonStyle(.plain)
@@ -169,6 +169,7 @@ struct SelectWorkoutView: View {
                 w = Int(weight)!
             }
             await construct.createWorkout(data: WorkoutTemplate(name: workoutName, repCount: Int(amountReps)!, type: selectedType, weight: w))
+            getWorkouts()
             createPopup = false
         }
     }

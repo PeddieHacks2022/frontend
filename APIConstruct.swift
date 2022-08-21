@@ -211,6 +211,34 @@ class APIConstruct {
         return finalResult
     }
 
+    func getGraph(name: String) async -> Data? {
+        var finalResult: Data?
+        let url = URL(string: host + "/user/" + String(sessionID) + "/" + name)!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+        let semaphore = DispatchSemaphore(value: 0)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
+
+            if let imageData = data {
+                finalResult = imageData
+
+            } else {
+                print("Couldn't get image: Image is nil")
+            }
+        }
+        task.resume()
+        semaphore.wait()
+        print("HERE")
+        return finalResult
+    }
+
     func getRoutines() async {
         let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
         var request = URLRequest(url: url)
