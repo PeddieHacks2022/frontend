@@ -48,12 +48,19 @@ struct SelectWorkoutView: View {
     @State private var workoutList: [WorkoutRequest] = [WorkoutRequest(id: 30_535_572, name: "X", workoutType: "Curl", reps: 44, createdDate: "2022-08-20 17:48:54.765379")]
     @State private var redirect: Bool = false
 
-    // Create Workout States
+    // Popup States
     @State private var createPopup: Bool = false
+    @State private var createWorkoutPopup: Bool = false
+    @State private var createRoutinePopup: Bool = false
+
+    // Create Workout States
+    @State private var workoutName = ""
     @State private var selectedType = "Bicep Curl"
     @State private var amountReps = ""
     @State private var weight = ""
-    @State private var workoutName = ""
+
+    // Create Routine Stated
+    @State private var routineName = ""
 
     var workoutTypes = ["Bicep Curl", "Jumping Jacks"]
 
@@ -71,7 +78,18 @@ struct SelectWorkoutView: View {
                     Image(systemName: "plus.circle").resizable().aspectRatio(contentMode: .fit)
                 }
                 .padding(.trailing)
-                .frame(height: 25.0).popover(isPresented: $createPopup) {
+                .frame(height: 25.0)
+                .actionSheet(isPresented: $createPopup, content: {
+                    ActionSheet(
+                        title: Text("What would you like to create?"),
+                        buttons: [
+                            .default(Text("Workout")) { createWorkoutPopup = true },
+                            .default(Text("Routine")) { createRoutinePopup = true },
+                            .cancel(),
+                        ]
+                    )
+                })
+                .popover(isPresented: $createWorkoutPopup) {
                     ZStack {
                         NavigationView {
                             Form {
@@ -79,7 +97,7 @@ struct SelectWorkoutView: View {
                                     HStack {
                                         Text("Workout Name")
                                         Spacer()
-                                        TextField("", text: $workoutName).multilineTextAlignment(.trailing)
+                                        TextField("My Workout", text: $workoutName).multilineTextAlignment(.trailing)
                                     }
                                     Picker("Type of Workout", selection: $selectedType) {
                                         ForEach(workoutTypes, id: \.self) { type in
@@ -108,6 +126,33 @@ struct SelectWorkoutView: View {
                                 .toolbar {
                                     ToolbarItem(placement: .principal) {
                                         Text("Create Workout")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                            .padding(.top)
+                                    }
+                                }
+                        }
+                    }
+                }
+                .popover(isPresented: $createRoutinePopup) {
+                    ZStack {
+                        NavigationView {
+                            Form {
+                                Section {
+                                    HStack {
+                                        Text("Routine Name")
+                                        Spacer()
+                                        TextField("My Routine", text: $routineName).multilineTextAlignment(.trailing)
+                                    }
+                                }
+                                Section {
+                                    Button("Create", action: createRoutine).disabled(workoutName == "")
+                                }
+
+                            }.navigationBarTitleDisplayMode(.inline)
+                                .toolbar {
+                                    ToolbarItem(placement: .principal) {
+                                        Text("Create Routine")
                                             .font(.title)
                                             .fontWeight(.bold)
                                             .padding(.top)
@@ -168,7 +213,13 @@ struct SelectWorkoutView: View {
             }
             await construct.createWorkout(data: WorkoutTemplate(name: workoutName, repCount: Int(amountReps)!, type: selectedType, weight: w))
             createPopup = false
+            createWorkoutPopup = false
         }
+    }
+
+    func createRoutine() {
+        createPopup = false
+        createRoutinePopup = false
     }
 }
 
