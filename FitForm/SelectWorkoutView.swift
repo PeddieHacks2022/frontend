@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum WorkoutMode {
+    case workout
+    case routine
+}
+
 struct RoutinePostBody: Encodable {
     var name: String
     var workoutIDs: [String]
@@ -53,6 +58,7 @@ class WorkoutTemplate: Codable {
 struct SelectWorkoutView: View {
     @State private var workoutList: [WorkoutRequest] = [WorkoutRequest(id: 30_535_572, name: "X", workoutType: "Curl", reps: 44, createdDate: "2022-08-20 17:48:54.765379")]
     @State private var redirect: Bool = false
+    @State private var workoutMode: WorkoutMode = .routine
 
     // Popup States
     @State private var createPopup: Bool = false
@@ -75,27 +81,27 @@ struct SelectWorkoutView: View {
         VStack {
             HStack {
                 Spacer()
-                Text("Select Workout")
+                Text("Select \(workoutMode == WorkoutMode.workout ? "Workout" : "Routine")")
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.leading)
                     .frame(alignment: .center)
                 Spacer()
-                Button(action: { createPopup = true }) {
+                Button(action: { if workoutMode == WorkoutMode.workout { createWorkoutPopup = true } else { createRoutinePopup = true } }) {
                     Image(systemName: "plus.circle").resizable().aspectRatio(contentMode: .fit)
                 }
                 .padding(.trailing)
                 .frame(height: 25.0)
-                .actionSheet(isPresented: $createPopup, content: {
-                    ActionSheet(
-                        title: Text("What would you like to create?"),
-                        buttons: [
-                            .default(Text("Workout")) { createWorkoutPopup = true },
-                            .default(Text("Routine")) { createRoutinePopup = true },
-                            .cancel(),
-                        ]
-                    )
-                })
+                /* .actionSheet(isPresented: $createPopup, content: { */
+                /*     ActionSheet( */
+                /*         title: Text("What would you like to create?"), */
+                /*         buttons: [ */
+                /*             .default(Text("Workout")) { createWorkoutPopup = true }, */
+                /*             .default(Text("Routine")) { createRoutinePopup = true }, */
+                /*             .cancel(), */
+                /*         ] */
+                /*     ) */
+                /* }) */
                 .popover(isPresented: $createWorkoutPopup) {
                     ZStack {
                         NavigationView {
@@ -182,6 +188,10 @@ struct SelectWorkoutView: View {
             }
             .padding(.leading)
             .frame(maxWidth: .infinity)
+            Picker("Workout Mode", selection: $workoutMode) {
+                Text("Workout").tag(WorkoutMode.workout)
+                Text("Routine").tag(WorkoutMode.routine)
+            }.pickerStyle(.segmented)
             VStack {
                 ForEach(workoutList, id: \.id) { workout in
                     Button(action: {
