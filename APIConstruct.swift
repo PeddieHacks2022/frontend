@@ -281,16 +281,12 @@ class APIConstruct {
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
-
-        let task = URLSession.shared.dataTask(with: request) { _, response, error in
-            if let error = error {
-                print("Error took place \(error)")
-            }
-            if let response = response as? HTTPURLResponse {
-                print("Response HTTP Status code: \(response.statusCode)")
-            }
+        do {
+            let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        } catch {
+            print("request Failed")
         }
-        task.resume()
     }
 
     struct RoutinePatchBody: Encodable {
