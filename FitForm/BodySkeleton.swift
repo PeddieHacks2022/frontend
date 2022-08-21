@@ -13,7 +13,6 @@ class BodySkeleton: Entity {
     var joints: [String: Entity] = [:]
     var bones: [String: Entity] = [:]
     var jointsFormatted: [String: [Float]] = [:]
-    var counter = 0;
     
     
     
@@ -95,14 +94,7 @@ class BodySkeleton: Entity {
 
         construct.sendUDP(encoded)
         controller.update()
-        if counter%5==0{
-            Task{
-                await construct.pollReps()
-                print("construct")
-            }
-            
-        }
-        counter+=1
+        
         
         for bone in Bones.allCases {
             let boneName = bone.name
