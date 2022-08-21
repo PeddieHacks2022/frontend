@@ -11,11 +11,13 @@ import SwiftUI
 
 struct StatisticsView: View {
     var test = LineChartData()
-
+    
     var body: some View {
-        ZStack {
+        ZStack{
             ARViewContainer().edgesIgnoringSafeArea(.all)
             Text(String(controller.reps))
         }
+                    
+        
     }
 }

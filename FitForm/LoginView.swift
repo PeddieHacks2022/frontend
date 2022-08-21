@@ -12,12 +12,13 @@ struct LoginView: View {
     @State private var wrongUsername = 0
     @State private var wrongPassword = 0
     @State private var isLoggedIn = false
-
+    
+    
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack{
 //                Color.blue.ignoresSafeArea()
-                VStack {
+                VStack{
                     Text("Login")
                         .font(.largeTitle)
                         .bold()
@@ -36,9 +37,9 @@ struct LoginView: View {
                         .border(.red, width: CGFloat(wrongUsername))
                     Button(
                         action: {
-                            Task {
-                                await construct.login(info: signInfo)
-                                isLoggedIn = construct.sessionID != -1
+                            Task{
+                            await construct.login(info:signInfo)
+                            isLoggedIn = construct.sessionID != -1
                             }
                         }) { Text("Sign In")
                             .padding()
@@ -47,22 +48,31 @@ struct LoginView: View {
                             .contentShape(Rectangle())
                             .background(Color.blue)
                             .cornerRadius(10)
-                        }
+                            }
 
-                    NavigationLink(destination: HomeView(),
-                                   isActive: $isLoggedIn) {
+                    NavigationLink( destination: HomeView(),
+                                    isActive:  $isLoggedIn){
                         EmptyView()
                     }
                     Spacer()
-                    NavigationLink(destination: RegisterView()) {
+                    NavigationLink( destination: RegisterView()){
                         Text("Register")
                     }.padding(.bottom, 30.0)
+                    
+                    
                 }
             }
         }
         .navigationBarHidden(true)
     }
+    
+    
 }
+
+
+
+
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {

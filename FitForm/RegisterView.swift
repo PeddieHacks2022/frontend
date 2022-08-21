@@ -12,12 +12,12 @@ struct RegisterView: View {
     @State private var wrongUsername = 0
     @State private var wrongPassword = 0
     @State private var isRegistered = false
-
+    
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack{
 //                Color.blue.ignoresSafeArea()
-                VStack {
+                VStack{
                     Text("Register")
                         .font(.largeTitle)
                         .bold()
@@ -39,9 +39,9 @@ struct RegisterView: View {
                         .cornerRadius(10)
                     Button(
                         action: {
-                            Task {
-                                await construct.register(info: signInfo)
-                                isRegistered = construct.sessionID != -1
+                            Task{
+                            await construct.register(info:signInfo)
+                            isRegistered = construct.sessionID != -1
                             }
                         }) { Text("Sign Up")
                             .padding()
@@ -50,22 +50,27 @@ struct RegisterView: View {
                             .contentShape(Rectangle())
                             .background(Color.blue)
                             .cornerRadius(10)
-                        }
-
-                    NavigationLink(destination: HomeView(),
-                                   isActive: $isRegistered) {
+                            }
+                    
+                    
+                    NavigationLink( destination: HomeView(),
+                                    isActive:  $isRegistered){
                         EmptyView()
                     }
                     Spacer()
-                    NavigationLink(destination: LoginView()) {
+                    NavigationLink( destination: LoginView()){
                         Text("Login")
                     }.padding(.bottom, 30.0)
+                    
                 }
             }
         }
         .navigationBarHidden(true)
     }
+    
+    
 }
+
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
