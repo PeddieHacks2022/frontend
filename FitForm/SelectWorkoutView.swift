@@ -13,6 +13,8 @@ struct WorkoutRequest : Decodable{
     var reps: Int
     var createdDate: String
 }
+
+typealias RoutineRequest = [String: [WorkoutRequest]]
 class WorkoutTemplate: Codable {
     var name: String
     var repCount: Int

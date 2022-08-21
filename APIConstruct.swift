@@ -223,6 +223,34 @@ class APIConstruct {
         }
         task.resume()
     }
+
+    func getRoutines() async {
+        let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+
+        /* var finalResult: RoutineRequest = []; */
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let result = try decoder.decode(RoutineRequest.self, from: data!)
+                print(result)
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+        }
+        task.resume()
+    }
     
 }
 
