@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
        
         VStack{
-                NavigationLink(destination: WorkoutView()  ){
+                NavigationLink(destination: SelectWorkoutView()  ){
                     Text("Start Workout")
             }
         }

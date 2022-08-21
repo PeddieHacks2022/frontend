@@ -45,10 +45,11 @@ class WorkoutTemplate: Codable {
 }
 
 struct SelectWorkoutView: View {
-    @State private var panelState : String = "Select"
-    @State private var createPopup : Bool = false
+    @State private var workoutList: [WorkoutRequest] = [WorkoutRequest(id: 30535572, name: "X", workoutType: "Curl", reps: 44, createdDate: "2022-08-20 17:48:54.765379")]
+    @State private var redirect: Bool = false
     
     // Create Workout States
+    @State private var createPopup : Bool = false
     @State private var selectedType = "Bicep Curl"
     @State private var amountReps = ""
     @State private var weight = ""
@@ -122,13 +123,44 @@ struct SelectWorkoutView: View {
             }
             .padding(.leading)
             .frame(maxWidth: .infinity)
-        Spacer()
-        }.onAppear{getWorkouts()}
+            VStack {
+                ForEach(workoutList, id: \.id) { workout in
+                    Button(action: {
+                        print(workout.id)
+                        construct.workoutId = workout.id
+                        redirect = true
+                    }) {
+                        HStack {
+                            VStack {
+                                    Text(workout.name)
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.leading)
+                                    Text("# of Reps: " + String(workout.reps))
+                                        .fontWeight(.thin)
+                                        .multilineTextAlignment(.leading)
+                                }
+                                Spacer()
+                                Text("Insert Image")
+                        }
+                        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/).border(.orange, width: 2)
+                    }.buttonStyle(.plain)
+                    NavigationLink(destination: WorkoutView(), isActive: $redirect) {
+                        EmptyView()
+                    }
+                    
+                }
+            }
+            Spacer()
+        }.onAppear{
+            getWorkouts()
+            redirect = false
+        }
     }
     func getWorkouts() {
-        print("Fetching workouts")
         Task {
-         await construct.getWorkouts()
+         workoutList = await construct.getWorkouts()
+         print(workoutList)
         }
     }
     func createWorkout() {
