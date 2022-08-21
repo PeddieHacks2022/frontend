@@ -16,6 +16,8 @@ class BodySkeleton: Entity {
 
     required init(for bodyAnchor: ARBodyAnchor) {
         super.init()
+        construct.initialize()
+        controller.initialize()
 
         for jointName in ARSkeletonDefinition.defaultBody3D.jointNames {
             var jointRadius: Float = 0.05
@@ -86,7 +88,6 @@ class BodySkeleton: Entity {
             print("Failed to encode login info")
             return
         }
-
         construct.sendUDP(encoded)
         controller.update()
 

@@ -204,11 +204,11 @@ struct SelectWorkoutView: View {
                     List {
                         ForEach(workoutList, id: \.id) { workout in
                             Button(action: {
+                                print("here")
                                 print(workout.id)
                                 construct.workoutId = workout.id
                                 construct.isRoutine = 0
-                                construct.initialize()
-                                controller.initialize()
+
                                 redirect = true
                             }) {
                                 Text(workout.name)
@@ -231,9 +231,6 @@ struct SelectWorkoutView: View {
                                  .padding(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/)
                                  */
                             }.buttonStyle(.plain)
-                            NavigationLink(destination: WorkoutView(), isActive: $redirect) {
-                                EmptyView()
-                            }
                         }
                     }
                 }
@@ -242,11 +239,10 @@ struct SelectWorkoutView: View {
                     List {
                         ForEach(routineList, id: \.id) { routine in
                             Button(action: {
-                                print(routine.id)
+                                print("routine.id" + String(routine.id))
                                 construct.workoutId = routine.id
                                 construct.isRoutine = 1
-                                construct.initialize()
-                                controller.initialize()
+
                                 redirect = true
                             }) {
                                 Text(routine.name)
@@ -254,18 +250,19 @@ struct SelectWorkoutView: View {
                                     .fontWeight(.bold)
                                     .multilineTextAlignment(.leading)
                             }.buttonStyle(.plain)
-                            NavigationLink(destination: WorkoutView(), isActive: $redirect) {
-                                EmptyView()
-                            }
                         }
                     }
                 }
             }
+
             Spacer()
         }.onAppear {
             getWorkouts()
             getRoutines()
             redirect = false
+        }
+        NavigationLink(destination: WorkoutView(), isActive: $redirect) {
+            EmptyView()
         }
     }
 

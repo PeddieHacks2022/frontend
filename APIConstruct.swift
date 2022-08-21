@@ -17,7 +17,7 @@ class APIConstruct {
     var sessionID = -1
 
     var workoutId = -1
-    var isRoutine = 0
+    var isRoutine = -1
 
     func initialize() {
         connectToUDP(hostUDP, portUDP)
@@ -26,6 +26,7 @@ class APIConstruct {
     func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
         // Transmited message:
         let messageToUDP = String(sessionID) + " " + String(isRoutine) + " " + String(workoutId)
+        print("hello")
 
         connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
 
@@ -35,7 +36,8 @@ class APIConstruct {
             case .ready:
                 print("State: Ready\n")
                 self.sendUDP(messageToUDP)
-                self.receiveUDP()
+                print("message")
+                print(messageToUDP)
             case .setup:
                 print("State: Setup\n")
             case .cancelled:
