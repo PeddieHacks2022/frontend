@@ -5,14 +5,17 @@
 //  Created by Nithin Muthukumar on 2022-08-20.
 //
 
-import AVKit
 import SwiftUI
+import AVKit
 struct WorkoutView: View {
+    
     var body: some View {
-        ZStack {
+        ZStack{
             ARViewContainer().edgesIgnoringSafeArea(.all)
             Text(String(controller.reps))
         }
+                    
+        
     }
 }
 

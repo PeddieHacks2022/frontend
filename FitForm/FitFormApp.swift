@@ -17,6 +17,7 @@ struct FitFormApp: App {
 //                ARViewContainer().edgesIgnoringSafeArea(.all)
 //                Text("SUCK DICK")
 //            }
+            
         }
     }
 }
