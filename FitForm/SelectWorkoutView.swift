@@ -91,7 +91,7 @@ struct SelectWorkoutView: View {
     @State private var routineName = ""
     @State private var selectedWorkouts: [String] = []
 
-    var workoutTypes = ["Bicep Curl", "Left Bicep Curl", "Alternating Bicep Curl", "Right Bicep Curl", "Jumping Jacks", "Push Up", "Sit Up"]
+    var workoutTypes = ["Bicep Curl", "Left Bicep Curl", "Right Bicep Curl", "Overhead Press", "Left Overhead Press", "Right Overhead Press"]
 
     var body: some View {
         VStack {
@@ -212,7 +212,7 @@ struct SelectWorkoutView: View {
                                     print(workout.id)
                                     construct.workoutId = workout.id
                                     construct.isRoutine = 0
-
+                                    
                                     redirect = true
                                 }) {
                                     HStack {
@@ -296,6 +296,7 @@ struct SelectWorkoutView: View {
     func createRoutine() {
         Task {
             await construct.createRoutine(body: RoutinePostBody(name: routineName, workoutIDs: selectedWorkouts))
+            getRoutines()
             createPopup = false
             createRoutinePopup = false
         }
