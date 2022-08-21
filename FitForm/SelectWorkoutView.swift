@@ -212,7 +212,7 @@ struct SelectWorkoutView: View {
                                     print(workout.id)
                                     construct.workoutId = workout.id
                                     construct.isRoutine = 0
-                                    
+
                                     redirect = true
                                 }) {
                                     HStack {
