@@ -250,11 +250,11 @@ class APIConstruct {
         task.resume()
     }
 
-    struct RoutinePostBody {
-        name: String,
-        workoutIDs: [String]
+    struct RoutinePostBody : Encodable {
+        var name: String
+        var workoutIDs: [String]
     }
-    func createRoutine(bodu: RoutinePostBody) async {
+    func createRoutine(body: RoutinePostBody) async {
         guard let encoded = try? JSONEncoder().encode(body) else {
             print("Failed to encode json body")
             return
@@ -276,9 +276,9 @@ class APIConstruct {
         task.resume()
     }
 
-    struct RoutinePatchBody {
-        routineID: String,
-        workoutID: string
+    struct RoutinePatchBody : Encodable {
+        var routineID: String
+        var workoutID: String
     }
     func addWorkoutToRoutine(body: RoutinePatchBody) async {
         guard let encoded = try? JSONEncoder().encode(body) else {
