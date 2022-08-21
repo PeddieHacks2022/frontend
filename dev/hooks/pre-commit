@@ -6,7 +6,7 @@ NC='\033[0m'
 if command -v swiftformat &> /dev/null
 then
     printf "${BOLD}[PRE-COMMIT]${NC} formatting code...\n"
-    swiftformat .
+    swiftformat . --exclude Pods
     git add -u
 else
     printf "${YELLOW_BOLD}[WARNING]${NC} swiftformat is not installed. install it to automaitcally format code on commit\n"
