@@ -61,10 +61,20 @@ class WorkoutTemplate: Codable {
 }
 
 struct SelectWorkoutView: View {
-    @State private var workoutList: [WorkoutRequest] = []
-    @State private var routineList: [RoutineRequest] = []
+    @State private var workoutList: [WorkoutRequest] = [
+        WorkoutRequest(id: 0, name: "my workout 1", workoutType: "Curl", reps: 44, createdDate: ""),
+        WorkoutRequest(id: 1, name: "my workout 2", workoutType: "Curl", reps: 44, createdDate: ""),
+        WorkoutRequest(id: 2, name: "my workout 3", workoutType: "Curl", reps: 44, createdDate: ""),
+        WorkoutRequest(id: 3, name: "my workout 4", workoutType: "Curl", reps: 44, createdDate: ""),
+    ]
+    @State private var routineList: [RoutineRequest] = [
+        RoutineRequest(id: 0, name: "My Routine 1", workouts: []),
+        RoutineRequest(id: 1, name: "My Routine 2", workouts: []),
+        RoutineRequest(id: 2, name: "My Routine 3", workouts: []),
+        RoutineRequest(id: 3, name: "My Routine 4", workouts: []),
+    ]
     @State private var redirect: Bool = false
-    @State private var workoutMode: WorkoutMode = .routine
+    @State private var workoutMode: WorkoutMode = .workout
 
     // Popup States
     @State private var createPopup: Bool = false
@@ -86,33 +96,22 @@ struct SelectWorkoutView: View {
     var body: some View {
         VStack {
             HStack {
-                Spacer()
-                Text("Select \(workoutMode == WorkoutMode.workout ? "Workout" : "Routine")")
+                Text("\(workoutMode == WorkoutMode.workout ? "🏋️Select Workout" : "⚡Select Routine")")
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.leading)
-                    .frame(alignment: .center)
+                /* .frame(alignment: .center) */
                 Spacer()
                 Button(action: { if workoutMode == WorkoutMode.workout { createWorkoutPopup = true } else { createRoutinePopup = true } }) {
-                    Image(systemName: "plus.circle").resizable().aspectRatio(contentMode: .fit)
+                    Image(systemName: "plus").resizable().aspectRatio(contentMode: .fit)
                 }
+                .frame(height: 20.0)
                 .padding(.trailing)
-                .frame(height: 25.0)
-                /* .actionSheet(isPresented: $createPopup, content: { */
-                /*     ActionSheet( */
-                /*         title: Text("What would you like to create?"), */
-                /*         buttons: [ */
-                /*             .default(Text("Workout")) { createWorkoutPopup = true }, */
-                /*             .default(Text("Routine")) { createRoutinePopup = true }, */
-                /*             .cancel(), */
-                /*         ] */
-                /*     ) */
-                /* }) */
                 .popover(isPresented: $createWorkoutPopup) {
                     ZStack {
                         NavigationView {
                             Form {
-                                Section {
+                                Section(header: Text("Workout Information")) {
                                     HStack {
                                         Text("Workout Name")
                                         Spacer()
@@ -137,8 +136,9 @@ struct SelectWorkoutView: View {
                                     }
                                 }
 
-                                Section {
-                                    Button("Create", action: createWorkout).disabled(workoutName == "" || amountReps == "" || (weight == "" && selectedType == "Bicep Curl"))
+                                Section(footer: Text("A workout is a single type of exercise that you perform. You can build an entire workout routines by composing individual workouts.")) {
+                                    Button("Create Workout", action: createWorkout).disabled(workoutName == "" || amountReps == "" || (weight == "" && selectedType == "Bicep Curl"))
+                                    Button("Cancel", action: { createRoutinePopup = false }).foregroundColor(.red)
                                 }
 
                             }.navigationBarTitleDisplayMode(.inline)
@@ -147,7 +147,6 @@ struct SelectWorkoutView: View {
                                         Text("Create Workout")
                                             .font(.title)
                                             .fontWeight(.bold)
-                                            .padding(.top)
                                     }
                                 }
                         }
@@ -157,7 +156,7 @@ struct SelectWorkoutView: View {
                     ZStack {
                         NavigationView {
                             Form {
-                                Section {
+                                Section(header: Text("Routine information")) {
                                     HStack {
                                         Text("Routine Name")
                                         Spacer()
@@ -165,18 +164,20 @@ struct SelectWorkoutView: View {
                                     }
                                 }
 
-                                ForEach(selectedWorkouts.indices, id: \.self) { index in
-                                    Picker("Workout \(index + 1)", selection: $selectedWorkouts[index]) {
-                                        ForEach(workoutList, id: \.self) { workout in
-                                            Text(workout.name).tag(String(workout.id))
+                                Section(header: Text("Workouts")) {
+                                    ForEach(selectedWorkouts.indices, id: \.self) { index in
+                                        Picker("Workout \(index + 1)", selection: $selectedWorkouts[index]) {
+                                            ForEach(workoutList, id: \.self) { workout in
+                                                Text(workout.name).tag(String(workout.id))
+                                            }
                                         }
                                     }
+                                    Button("Add Workout", action: addWorkoutToRoutine)
                                 }
-                                Section {
-                                    Button("Add", action: addWorkoutToRoutine)
-                                }
-                                Section {
-                                    Button("Create", action: createRoutine).disabled(routineName == "")
+
+                                Section(footer: Text("Routines are 'playlists' of workouts. You can add workouts that you have previously created into this workout routine.")) {
+                                    Button("Create Routine", action: createRoutine).disabled(routineName == "")
+                                    Button("Cancel", action: { createRoutinePopup = false }).foregroundColor(.red)
                                 }
 
                             }.navigationBarTitleDisplayMode(.inline)
@@ -185,7 +186,6 @@ struct SelectWorkoutView: View {
                                         Text("Create Routine")
                                             .font(.title)
                                             .fontWeight(.bold)
-                                            .padding(.top)
                                     }
                                 }
                         }
@@ -194,62 +194,62 @@ struct SelectWorkoutView: View {
             }
             .padding(.leading)
             .frame(maxWidth: .infinity)
-            Picker("Workout Mode", selection: $workoutMode) {
-                Text("Workout").tag(WorkoutMode.workout)
-                Text("Routine").tag(WorkoutMode.routine)
-            }.pickerStyle(.segmented)
 
-            if workoutMode == WorkoutMode.workout {
-                VStack {
-                    List {
-                        ForEach(workoutList, id: \.id) { workout in
-                            Button(action: {
-                                print("here")
-                                print(workout.id)
-                                construct.workoutId = workout.id
-                                construct.isRoutine = 0
+            HStack {
+                Picker("Workout Mode", selection: $workoutMode) {
+                    Text("Workout").tag(WorkoutMode.workout)
+                    Text("Routine").tag(WorkoutMode.routine)
+                }.pickerStyle(.segmented).padding(.trailing).padding(.leading)
+            }
 
-                                redirect = true
-                            }) {
-                                Text(workout.name)
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.leading)
-                                /*
-                                 HStack {
-                                     VStack {
-                                         Text(workout.name)
-                                             .font(.headline)
-                                             .fontWeight(.bold)
-                                             .multilineTextAlignment(.leading)
-                                         Text("# of Reps: " + String(workout.reps))
-                                             .fontWeight(.thin)
-                                             .multilineTextAlignment(.leading)
-                                     }
-                                     Spacer()
-                                     Text("Insert Image")
-                                 .padding(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/)
-                                 */
-                            }.buttonStyle(.plain)
+            VStack {
+                Form {
+                    if workoutMode == WorkoutMode.workout {
+                        Section(footer: Text("\(workoutList.count) total workouts")) {
+                            ForEach(workoutList, id: \.id) { workout in
+                                Button(action: {
+                                    print("here")
+                                    print(workout.id)
+                                    construct.workoutId = workout.id
+                                    construct.isRoutine = 0
+
+                                    redirect = true
+                                }) {
+                                    HStack {
+                                        Text(workout.name)
+                                            .font(.headline)
+                                            .foregroundColor(.black)
+                                        Spacer()
+                                        Text(workout.workoutType)
+                                            .padding(.trailing, 10)
+                                        Image(systemName: "chevron.right").resizable().aspectRatio(contentMode: .fit)
+                                            .frame(height: 20.0)
+                                    }
+                                }.foregroundColor(.gray)
+                            }
                         }
-                    }
-                }
-            } else {
-                VStack {
-                    List {
-                        ForEach(routineList, id: \.id) { routine in
-                            Button(action: {
-                                print("routine.id" + String(routine.id))
-                                construct.workoutId = routine.id
-                                construct.isRoutine = 1
+                    } else {
+                        Section(footer: Text("\(routineList.count) total routines")) {
+                            ForEach(routineList, id: \.id) { routine in
+                                Button(action: {
+                                    print("routine.id" + String(routine.id))
+                                    construct.workoutId = routine.id
+                                    construct.isRoutine = 1
 
-                                redirect = true
-                            }) {
-                                Text(routine.name)
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.leading)
-                            }.buttonStyle(.plain)
+                                    redirect = true
+                                }) {
+                                    HStack {
+                                        Text(routine.name)
+                                            .font(.headline)
+                                            .foregroundColor(.black)
+                                        Spacer()
+                                        Text("\(routine.workouts.count) workouts")
+                                            .padding(.trailing, 10)
+                                        Image(systemName: "chevron.right").resizable().aspectRatio(contentMode: .fit)
+                                            .frame(height: 20.0)
+                                    }
+                                }.foregroundColor(.gray)
+                            }
                         }
                     }
                 }
@@ -257,8 +257,8 @@ struct SelectWorkoutView: View {
 
             Spacer()
         }.onAppear {
-            getWorkouts()
-            getRoutines()
+            /* getWorkouts() */
+            /* getRoutines() */
             redirect = false
         }
         NavigationLink(destination: WorkoutView(), isActive: $redirect) {
