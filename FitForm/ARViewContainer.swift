@@ -15,6 +15,7 @@ private let bodySkeletonAnchor = AnchorEntity()
 struct ARViewContainer : UIViewRepresentable {
     typealias UIViewType = ARView
     
+    
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero, cameraMode: .ar, automaticallyConfigureSession: true)
         
@@ -40,6 +41,7 @@ extension ARView: ARSessionDelegate {
         for anchor in anchors {
             if let bodyAnchor = anchor as? ARBodyAnchor {
                 if let skeleton = bodySkeleton {
+                    
                     skeleton.update(with: bodyAnchor)
                 } else {
                     bodySkeleton = BodySkeleton(for: bodyAnchor)

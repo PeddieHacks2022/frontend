@@ -13,6 +13,7 @@ struct LoginView: View {
     @State private var wrongPassword = 0
     @State private var isLoggedIn = false
     
+    
     var body: some View {
         NavigationView {
             ZStack{
@@ -49,7 +50,7 @@ struct LoginView: View {
                             .cornerRadius(10)
                             }
 
-                    NavigationLink( destination: HomeView(),
+                    NavigationLink( destination: WorkoutView(),
                                     isActive:  $isLoggedIn){
                         EmptyView()
                     }
