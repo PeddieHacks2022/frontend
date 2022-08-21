@@ -67,7 +67,6 @@
 		5988B2CA28B077A500B0DA4E = {
 			isa = PBXGroup;
 			children = (
-				835C286E28B0B3D7002662F8 /* APIConstruct.swift */,
 				5988B2D528B077A500B0DA4E /* FitForm */,
 				5988B2D428B077A500B0DA4E /* Products */,
 			);
@@ -84,25 +83,15 @@
 		5988B2D528B077A500B0DA4E /* FitForm */ = {
 			isa = PBXGroup;
 			children = (
-				5988B2FD28B1D03300B0DA4E /* ding-sound-effect_2.mp3 */,
+				835C286E28B0B3D7002662F8 /* APIConstruct.swift */,
+				5988B30628B252C500B0DA4E /* AREntities */,
 				5988B2D628B077A500B0DA4E /* FitFormApp.swift */,
-				5988B2E628B0808900B0DA4E /* HomeView.swift */,
-				5988B2D828B077A500B0DA4E /* ContentView.swift */,
-				83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */,
-				83D7970E28B0811300D1ED66 /* Bones.swift */,
-				835C286A28B09460002662F8 /* BodySkeleton.swift */,
-				83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */,
-				83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */,
+				5988B30528B2526100B0DA4E /* Views */,
+				5988B2FD28B1D03300B0DA4E /* ding-sound-effect_2.mp3 */,
 				5988B30128B1FA8F00B0DA4E /* chart.png */,
 				5988B2DA28B077A600B0DA4E /* Assets.xcassets */,
-				5988B2DC28B077A600B0DA4E /* Preview Content */,
-				5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */,
-				5988B2EA28B091BA00B0DA4E /* LoginView.swift */,
-				5988B2EE28B0B24A00B0DA4E /* RegisterView.swift */,
-				5988B2F328B195BA00B0DA4E /* WorkoutView.swift */,
 				5988B2F728B19E0500B0DA4E /* WorkoutController.swift */,
-				5988B2FF28B1F1D500B0DA4E /* StatView.swift */,
-				5988B30328B203B100B0DA4E /* SplashView.swift */,
+				5988B2DC28B077A600B0DA4E /* Preview Content */,
 			);
 			path = FitForm;
 			sourceTree = "<group>";
@@ -113,6 +102,33 @@
 				5988B2DD28B077A600B0DA4E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5988B30528B2526100B0DA4E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5988B30328B203B100B0DA4E /* SplashView.swift */,
+				5988B2FF28B1F1D500B0DA4E /* StatView.swift */,
+				5988B2F328B195BA00B0DA4E /* WorkoutView.swift */,
+				5988B2EE28B0B24A00B0DA4E /* RegisterView.swift */,
+				5988B2EA28B091BA00B0DA4E /* LoginView.swift */,
+				5988B2E628B0808900B0DA4E /* HomeView.swift */,
+				5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */,
+				5988B2D828B077A500B0DA4E /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5988B30628B252C500B0DA4E /* AREntities */ = {
+			isa = PBXGroup;
+			children = (
+				83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */,
+				83D7970E28B0811300D1ED66 /* Bones.swift */,
+				83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */,
+				83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */,
+				835C286A28B09460002662F8 /* BodySkeleton.swift */,
+			);
+			path = AREntities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

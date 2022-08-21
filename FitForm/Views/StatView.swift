@@ -14,9 +14,9 @@ enum GraphType {
 
 struct StatView: View {
     @State var timeGraph: Data? = nil
-    @State var totalExerciseTime = 0
-    @State var exerciseCount = 0
-    @State var repCount = 0
+    @State var totalExerciseTime = 600
+    @State var exerciseCount = 87
+    @State var repCount = 1282
 
     @State var graphSelected: GraphType = .time
 

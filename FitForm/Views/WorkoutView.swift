@@ -13,7 +13,6 @@ struct WorkoutView: View {
     var body: some View {
         ZStack {
             ARViewContainer().edgesIgnoringSafeArea(.all)
-            Text(String(controller.reps))
         }
 
         Button(action: {

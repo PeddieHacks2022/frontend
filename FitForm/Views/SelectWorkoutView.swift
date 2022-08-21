@@ -214,6 +214,8 @@ struct SelectWorkoutView: View {
                                     construct.isRoutine = 0
 
                                     redirect = true
+                                    construct.initialize()
+                                    controller.initialize()
                                 }) {
                                     HStack {
                                         Text(workout.name)
@@ -237,6 +239,8 @@ struct SelectWorkoutView: View {
                                     construct.isRoutine = 1
 
                                     redirect = true
+                                    construct.initialize()
+                                    controller.initialize()
                                 }) {
                                     HStack {
                                         Text(routine.name)
