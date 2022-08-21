@@ -257,8 +257,8 @@ struct SelectWorkoutView: View {
 
             Spacer()
         }.onAppear {
-            /* getWorkouts() */
-            /* getRoutines() */
+            getWorkouts()
+            getRoutines()
             redirect = false
         }
         NavigationLink(destination: WorkoutView(), isActive: $redirect) {
