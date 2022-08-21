@@ -7,34 +7,34 @@
 
 import Foundation
 
-enum Bones : CaseIterable {
+enum Bones: CaseIterable {
     case leftShoulderToLeftArm
     case leftArmToLeftForearm
     case leftForearmToLeftHand
-    
+
     case rightShoulderToRightArm
     case rightArmToRightForearm
     case rightForearmToRightHand
-    
+
     case spine7ToLeftShoulder
     case spine7ToRightShoulder
-    
+
     case neck1ToSpine7
     case spine7ToSpine6
     case spine6ToSpine5
-    
+
     case hipsToLeftUpLeg
     case leftUpLegToLeftLeg
     case leftLegToLeftFoot
-    
+
     case hipsToRightUpLeg
     case rightUpLegToRightLeg
     case rightLegToRightFoot
-    
+
     var name: String {
-        return "\(self.jointFromName)-\(self.jointToName)"
+        return "\(jointFromName)-\(jointToName)"
     }
-    
+
     var jointFromName: String {
         switch self {
         case .leftShoulderToLeftArm:
@@ -73,7 +73,7 @@ enum Bones : CaseIterable {
             return "right_leg_joint"
         }
     }
-    
+
     var jointToName: String {
         switch self {
         case .leftShoulderToLeftArm:
@@ -112,5 +112,4 @@ enum Bones : CaseIterable {
             return "right_foot_joint"
         }
     }
-    
 }
