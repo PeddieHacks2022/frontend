@@ -146,7 +146,6 @@ class APIConstruct {
     }
     func createWorkout(data: WorkoutTemplate) async {
         guard let encoded = try? JSONEncoder().encode(data) else {
-            
             print("Failed to encode login info")
             return
         }
@@ -195,12 +194,13 @@ class APIConstruct {
         return [:]
         
     }
-    func getWorkouts() async {
+    func getWorkouts() async -> [WorkoutRequest] {
         let url = URL(string: host + "/user/" + String(sessionID) + "/workout")!
         var request = URLRequest(url:url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
         var finalResult: [WorkoutRequest] = [];
+        let semaphore: DispatchSemaphore = DispatchSemaphore(value: 0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 print("Error took place \(error)")
@@ -215,12 +215,17 @@ class APIConstruct {
                 let result = try decoder.decode([String: [WorkoutRequest]].self, from: data!)
                 print(result)
                 finalResult = result["workouts"]!
+                semaphore.signal()
             } catch {
                 print(error.localizedDescription)
+                semaphore.signal()
             }
             
         }
         task.resume()
+        semaphore.wait()
+        print("HERE")
+        return finalResult
     }
 
     func getRoutines() async {
@@ -247,6 +252,58 @@ class APIConstruct {
                 print(error.localizedDescription)
             }
             
+        }
+        task.resume()
+    }
+
+    struct RoutinePostBody : Encodable {
+        var name: String
+        var workoutIDs: [String]
+    }
+    func createRoutine(body: RoutinePostBody) async {
+        guard let encoded = try? JSONEncoder().encode(body) else {
+            print("Failed to encode json body")
+            return
+        }
+
+        let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
+        }
+        task.resume()
+    }
+
+    struct RoutinePatchBody : Encodable {
+        var routineID: String
+        var workoutID: String
+    }
+    func addWorkoutToRoutine(body: RoutinePatchBody) async {
+        guard let encoded = try? JSONEncoder().encode(body) else {
+            print("Failed to encode json body")
+            return
+        }
+
+        let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PATCH"
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
         }
         task.resume()
     }
