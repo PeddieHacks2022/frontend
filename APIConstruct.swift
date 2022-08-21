@@ -195,12 +195,13 @@ class APIConstruct {
         return [:]
         
     }
-    func getWorkouts() async {
+    func getWorkouts() async -> [WorkoutRequest] {
         let url = URL(string: host + "/user/" + String(sessionID) + "/workout")!
         var request = URLRequest(url:url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
         var finalResult: [WorkoutRequest] = [];
+        let semaphore: DispatchSemaphore = DispatchSemaphore(value: 0)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 print("Error took place \(error)")
@@ -215,12 +216,17 @@ class APIConstruct {
                 let result = try decoder.decode([String: [WorkoutRequest]].self, from: data!)
                 print(result)
                 finalResult = result["workouts"]!
+                semaphore.signal()
             } catch {
                 print(error.localizedDescription)
+                semaphore.signal()
             }
             
         }
         task.resume()
+        semaphore.wait()
+        print("HERE")
+        return finalResult
     }
 
     func getRoutines() async {

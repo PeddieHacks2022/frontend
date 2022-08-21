@@ -50,7 +50,7 @@ struct LoginView: View {
                             .cornerRadius(10)
                             }
 
-                    NavigationLink( destination: WorkoutView(),
+                    NavigationLink( destination: HomeView(),
                                     isActive:  $isLoggedIn){
                         EmptyView()
                     }
