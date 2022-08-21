@@ -20,22 +20,31 @@ class WorkoutController{
         self.workouts = workouts
     }
     func update(){
-        if counter%5==0{
+        if counter%10==0{
             Task{
                 var data = await construct.pollReps()
+                if data["change"] == nil{
+                    return
+                }
                 var change = data["change"] as! String
-                if change != "nothing"{
+                if change == "up"{
                     
                     reps+=1
                     audioPlayer.play()
+                }else if change == "down"{
+                    
+                }else if change == "bad form"{
+                    speak(sentence:data["details"] as! String)
                 }
             }
             
         }
         counter+=1
     }
-    func speak(){
-        let utterance = AVSpeechUtterance(string: "Hello world")
+    func speak(sentence: String){
+        let utterance = AVSpeechUtterance(string: sentence)
+        synthesizer.speak(utterance)
+        
         
     }
     
