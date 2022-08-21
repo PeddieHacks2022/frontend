@@ -7,6 +7,7 @@
 
 import UIKit
 import Network
+import AVFAudio
 
 class APIConstruct {
     
@@ -16,11 +17,12 @@ class APIConstruct {
     var portUDP: NWEndpoint.Port = 8001
     var host: String = "http://192.168.2.100:8000"
     var sessionID = -1
-    var reps = 0
+
     var workoutId = -1
     
 
     func initialize() {
+        
         connectToUDP(hostUDP,portUDP)
     }
 
@@ -170,10 +172,10 @@ class APIConstruct {
             print("Create workout failed")
         }
     }
-    func getReps() async {
+    func pollReps() async -> [String: Any]{
         guard let encoded = try? JSONEncoder().encode(["ID":sessionID]) else {
             print("Failed to encode register info")
-            return
+            return [:]
         }
         let url = URL(string: host + "/udp/update")!
         var request = URLRequest(url:url)
@@ -183,17 +185,14 @@ class APIConstruct {
             let (data, _) = try await URLSession.shared.upload(for: request, from: encoded)
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
                 if let responseJSON = responseJSON as? [String: Any] {
-                    var change = responseJSON["change"] as! String
-                    if change != "nothing"{
-                        reps+=1
-                        print(reps)
-                    }
+                    return responseJSON
                 }
         }
         
         catch {
             print("Login Failed")
         }
+        return [:]
         
     }
     func getWorkouts() async {
