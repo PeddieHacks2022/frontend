@@ -12,12 +12,11 @@ class WorkoutController {
     let dingSound = Bundle.main.path(forResource: "ding-sound-effect_2", ofType: "mp3")
     let synthesizer = AVSpeechSynthesizer()
     var reps = 0
-    var workouts: [WorkoutTemplate] = []
     var counter = 0
+    var complete = false
 
-    func initialize(workouts: [WorkoutTemplate]) {
+    func initialize() {
         audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: dingSound!))
-        self.workouts = workouts
     }
 
     func update() {
@@ -27,13 +26,18 @@ class WorkoutController {
                 if data["change"] == nil {
                     return
                 }
+
                 var change = data["change"] as! String
+
                 if change == "up" {
                     reps += 1
-                    audioPlayer.play()
+                    speak(sentence: String(reps))
                 } else if change == "down" {
                 } else if change == "bad form" {
                     speak(sentence: data["details"] as! String)
+                } else if change == "complete" {
+                    speak(sentence: "Completed")
+                    complete = true
                 }
             }
         }

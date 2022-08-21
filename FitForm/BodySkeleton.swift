@@ -16,8 +16,6 @@ class BodySkeleton: Entity {
 
     required init(for bodyAnchor: ARBodyAnchor) {
         super.init()
-        construct.initialize()
-        controller.initialize(workouts: [])
 
         for jointName in ARSkeletonDefinition.defaultBody3D.jointNames {
             var jointRadius: Float = 0.05

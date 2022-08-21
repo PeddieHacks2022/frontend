@@ -13,6 +13,16 @@ struct WorkoutView: View {
             ARViewContainer().edgesIgnoringSafeArea(.all)
             Text(String(controller.reps))
         }
+
+        NavigationLink(destination: HomeView()) {
+            Text("Finish")
+                .padding()
+                .foregroundColor(.white)
+                .frame(width: 300, height: 50)
+                .contentShape(Rectangle())
+                .background(Color.blue)
+                .cornerRadius(10)
+        }
     }
 }
 
