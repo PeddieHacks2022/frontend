@@ -17,6 +17,7 @@ class APIConstruct {
     var sessionID = -1
 
     var workoutId = -1
+    var isRoutine = 0
 
     func initialize() {
         connectToUDP(hostUDP, portUDP)
@@ -24,7 +25,7 @@ class APIConstruct {
 
     func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
         // Transmited message:
-        let messageToUDP = String(sessionID) + " " + String(workoutId)
+        let messageToUDP = String(sessionID) + " " + String(isRoutine) + " " + String(workoutId)
 
         connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
 
@@ -236,6 +237,40 @@ class APIConstruct {
         task.resume()
         semaphore.wait()
         print("HERE")
+        return finalResult
+    }
+
+    func getRoutines() async -> [RoutineRequest] {
+        let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+
+        var finalResult: [RoutineRequest] = []
+        let semaphore = DispatchSemaphore(value: 0)
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
+
+            let decoder = JSONDecoder()
+
+            do {
+                let result = try decoder.decode([RoutineRequest].self, from: data!)
+                print(result)
+                finalResult = result
+                semaphore.signal()
+            } catch {
+                print(error.localizedDescription)
+                semaphore.signal()
+            }
+        }
+        task.resume()
+        semaphore.wait()
         return finalResult
     }
 
