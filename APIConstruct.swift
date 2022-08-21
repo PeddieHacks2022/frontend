@@ -146,7 +146,6 @@ class APIConstruct {
     }
     func createWorkout(data: WorkoutTemplate) async {
         guard let encoded = try? JSONEncoder().encode(data) else {
-            
             print("Failed to encode login info")
             return
         }
@@ -247,6 +246,58 @@ class APIConstruct {
                 print(error.localizedDescription)
             }
             
+        }
+        task.resume()
+    }
+
+    struct RoutinePostBody {
+        name: String,
+        workoutIDs: [String]
+    }
+    func createRoutine(bodu: RoutinePostBody) async {
+        guard let encoded = try? JSONEncoder().encode(body) else {
+            print("Failed to encode json body")
+            return
+        }
+
+        let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
+        }
+        task.resume()
+    }
+
+    struct RoutinePatchBody {
+        routineID: String,
+        workoutID: string
+    }
+    func addWorkoutToRoutine(body: RoutinePatchBody) async {
+        guard let encoded = try? JSONEncoder().encode(body) else {
+            print("Failed to encode json body")
+            return
+        }
+
+        let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PATCH"
+
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error took place \(error)")
+            }
+            if let response = response as? HTTPURLResponse {
+                print("Response HTTP Status code: \(response.statusCode)")
+            }
         }
         task.resume()
     }
