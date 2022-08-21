@@ -18,6 +18,8 @@
 		5988B2F428B195BA00B0DA4E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2F328B195BA00B0DA4E /* WorkoutView.swift */; };
 		5988B2F828B19E0500B0DA4E /* WorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2F728B19E0500B0DA4E /* WorkoutController.swift */; };
 		5988B2FE28B1D03300B0DA4E /* ding-sound-effect_2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5988B2FD28B1D03300B0DA4E /* ding-sound-effect_2.mp3 */; };
+		5988B30028B1F1D500B0DA4E /* StatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2FF28B1F1D500B0DA4E /* StatView.swift */; };
+		5988B30228B1FA8F00B0DA4E /* chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 5988B30128B1FA8F00B0DA4E /* chart.png */; };
 		835C286B28B09460002662F8 /* BodySkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286A28B09460002662F8 /* BodySkeleton.swift */; };
 		835C286F28B0B3D7002662F8 /* APIConstruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286E28B0B3D7002662F8 /* APIConstruct.swift */; };
 		83D7970728B07E1A00D1ED66 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */; };
@@ -39,7 +41,8 @@
 		5988B2F328B195BA00B0DA4E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		5988B2F728B19E0500B0DA4E /* WorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutController.swift; sourceTree = "<group>"; };
 		5988B2FD28B1D03300B0DA4E /* ding-sound-effect_2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ding-sound-effect_2.mp3"; sourceTree = "<group>"; };
-		82DDDB43702B56743441BA48 /* Pods-FitForm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitForm.release.xcconfig"; path = "Target Support Files/Pods-FitForm/Pods-FitForm.release.xcconfig"; sourceTree = "<group>"; };
+		5988B2FF28B1F1D500B0DA4E /* StatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatView.swift; sourceTree = "<group>"; };
+		5988B30128B1FA8F00B0DA4E /* chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chart.png; sourceTree = "<group>"; };
 		835C286A28B09460002662F8 /* BodySkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodySkeleton.swift; sourceTree = "<group>"; };
 		835C286E28B0B3D7002662F8 /* APIConstruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstruct.swift; sourceTree = "<group>"; };
 		83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 				835C286A28B09460002662F8 /* BodySkeleton.swift */,
 				83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */,
 				83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */,
+				5988B30128B1FA8F00B0DA4E /* chart.png */,
 				5988B2DA28B077A600B0DA4E /* Assets.xcassets */,
 				5988B2DC28B077A600B0DA4E /* Preview Content */,
 				5988B2E828B0904E00B0DA4E /* SelectWorkoutView.swift */,
@@ -95,6 +99,7 @@
 				5988B2EE28B0B24A00B0DA4E /* RegisterView.swift */,
 				5988B2F328B195BA00B0DA4E /* WorkoutView.swift */,
 				5988B2F728B19E0500B0DA4E /* WorkoutController.swift */,
+				5988B2FF28B1F1D500B0DA4E /* StatView.swift */,
 			);
 			path = FitForm;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 			files = (
 				5988B2DE28B077A600B0DA4E /* Preview Assets.xcassets in Resources */,
 				5988B2FE28B1D03300B0DA4E /* ding-sound-effect_2.mp3 in Resources */,
+				5988B30228B1FA8F00B0DA4E /* chart.png in Resources */,
 				5988B2DB28B077A600B0DA4E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5988B30028B1F1D500B0DA4E /* StatView.swift in Sources */,
 				5988B2F428B195BA00B0DA4E /* WorkoutView.swift in Sources */,
 				835C286F28B0B3D7002662F8 /* APIConstruct.swift in Sources */,
 				5988B2E928B0904E00B0DA4E /* SelectWorkoutView.swift in Sources */,
