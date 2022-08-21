@@ -6,7 +6,13 @@
 //
 
 import SwiftUI
-struct WorkoutRequest: Decodable {
+
+struct RoutinePostBody: Encodable {
+    var name: String
+    var workoutIDs: [String]
+}
+
+struct WorkoutRequest: Decodable, Hashable {
     var id: Int
     var name: String
     var workoutType: String
@@ -48,12 +54,20 @@ struct SelectWorkoutView: View {
     @State private var workoutList: [WorkoutRequest] = [WorkoutRequest(id: 30_535_572, name: "X", workoutType: "Curl", reps: 44, createdDate: "2022-08-20 17:48:54.765379")]
     @State private var redirect: Bool = false
 
-    // Create Workout States
+    // Popup States
     @State private var createPopup: Bool = false
+    @State private var createWorkoutPopup: Bool = false
+    @State private var createRoutinePopup: Bool = false
+
+    // Create Workout States
+    @State private var workoutName = ""
     @State private var selectedType = "Bicep Curl"
     @State private var amountReps = ""
     @State private var weight = ""
-    @State private var workoutName = ""
+
+    // Create Routine Stated
+    @State private var routineName = ""
+    @State private var selectedWorkouts: [String] = []
 
     var workoutTypes = ["Bicep Curl", "Left Bicep Curl", "Alternating Bicep Curl", "Right Bicep Curl", "Jumping Jacks", "Push Up", "Sit Up"]
 
@@ -71,7 +85,18 @@ struct SelectWorkoutView: View {
                     Image(systemName: "plus.circle").resizable().aspectRatio(contentMode: .fit)
                 }
                 .padding(.trailing)
-                .frame(height: 25.0).popover(isPresented: $createPopup) {
+                .frame(height: 25.0)
+                .actionSheet(isPresented: $createPopup, content: {
+                    ActionSheet(
+                        title: Text("What would you like to create?"),
+                        buttons: [
+                            .default(Text("Workout")) { createWorkoutPopup = true },
+                            .default(Text("Routine")) { createRoutinePopup = true },
+                            .cancel(),
+                        ]
+                    )
+                })
+                .popover(isPresented: $createWorkoutPopup) {
                     ZStack {
                         NavigationView {
                             Form {
@@ -79,7 +104,7 @@ struct SelectWorkoutView: View {
                                     HStack {
                                         Text("Workout Name")
                                         Spacer()
-                                        TextField("", text: $workoutName).multilineTextAlignment(.trailing)
+                                        TextField("My Workout", text: $workoutName).multilineTextAlignment(.trailing)
                                     }
                                     Picker("Type of Workout", selection: $selectedType) {
                                         ForEach(workoutTypes, id: \.self) { type in
@@ -108,6 +133,44 @@ struct SelectWorkoutView: View {
                                 .toolbar {
                                     ToolbarItem(placement: .principal) {
                                         Text("Create Workout")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                            .padding(.top)
+                                    }
+                                }
+                        }
+                    }
+                }
+                .popover(isPresented: $createRoutinePopup) {
+                    ZStack {
+                        NavigationView {
+                            Form {
+                                Section {
+                                    HStack {
+                                        Text("Routine Name")
+                                        Spacer()
+                                        TextField("My Routine", text: $routineName).multilineTextAlignment(.trailing)
+                                    }
+                                }
+
+                                ForEach(selectedWorkouts.indices, id: \.self) { index in
+                                    Picker("Workout \(index + 1)", selection: $selectedWorkouts[index]) {
+                                        ForEach(workoutList, id: \.self) { workout in
+                                            Text(workout.name).tag(String(workout.id))
+                                        }
+                                    }
+                                }
+                                Section {
+                                    Button("Add", action: addWorkoutToRoutine)
+                                }
+                                Section {
+                                    Button("Create", action: createRoutine).disabled(routineName == "")
+                                }
+
+                            }.navigationBarTitleDisplayMode(.inline)
+                                .toolbar {
+                                    ToolbarItem(placement: .principal) {
+                                        Text("Create Routine")
                                             .font(.title)
                                             .fontWeight(.bold)
                                             .padding(.top)
@@ -170,7 +233,23 @@ struct SelectWorkoutView: View {
             }
             await construct.createWorkout(data: WorkoutTemplate(name: workoutName, repCount: Int(amountReps)!, type: selectedType, weight: w))
             createPopup = false
+            createWorkoutPopup = false
         }
+    }
+
+    func createRoutine() {
+        Task {
+            await construct.createRoutine(body: RoutinePostBody(name: routineName, workoutIDs: selectedWorkouts))
+            createPopup = false
+            createRoutinePopup = false
+        }
+    }
+
+    func addWorkoutToRoutine() {
+        print("adding workout to routine")
+        var newSelectedWorkouts = selectedWorkouts
+        newSelectedWorkouts.append("")
+        selectedWorkouts = newSelectedWorkouts
     }
 }
 
