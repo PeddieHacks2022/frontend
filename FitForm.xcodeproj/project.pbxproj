@@ -19,12 +19,10 @@
 		5988B2F828B19E0500B0DA4E /* WorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5988B2F728B19E0500B0DA4E /* WorkoutController.swift */; };
 		835C286B28B09460002662F8 /* BodySkeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286A28B09460002662F8 /* BodySkeleton.swift */; };
 		835C286F28B0B3D7002662F8 /* APIConstruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C286E28B0B3D7002662F8 /* APIConstruct.swift */; };
-		835C287128B1CA9F002662F8 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C287028B1CA9F002662F8 /* StatisticsView.swift */; };
 		83D7970728B07E1A00D1ED66 /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */; };
 		83D7970928B07FB900D1ED66 /* SkeletonJoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */; };
 		83D7970B28B0802E00D1ED66 /* SkeletonBone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */; };
 		83D7970F28B0811300D1ED66 /* Bones.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83D7970E28B0811300D1ED66 /* Bones.swift */; };
-		FE546AA1226E794D9C0D4D0B /* Pods_FitForm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3B029D5EC7A25223D95E29B /* Pods_FitForm.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,16 +37,12 @@
 		5988B2EE28B0B24A00B0DA4E /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		5988B2F328B195BA00B0DA4E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		5988B2F728B19E0500B0DA4E /* WorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutController.swift; sourceTree = "<group>"; };
-		82DDDB43702B56743441BA48 /* Pods-FitForm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitForm.release.xcconfig"; path = "Target Support Files/Pods-FitForm/Pods-FitForm.release.xcconfig"; sourceTree = "<group>"; };
 		835C286A28B09460002662F8 /* BodySkeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodySkeleton.swift; sourceTree = "<group>"; };
 		835C286E28B0B3D7002662F8 /* APIConstruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstruct.swift; sourceTree = "<group>"; };
-		835C287028B1CA9F002662F8 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		83D7970628B07E1A00D1ED66 /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
 		83D7970828B07FB900D1ED66 /* SkeletonJoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonJoint.swift; sourceTree = "<group>"; };
 		83D7970A28B0802E00D1ED66 /* SkeletonBone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonBone.swift; sourceTree = "<group>"; };
 		83D7970E28B0811300D1ED66 /* Bones.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bones.swift; sourceTree = "<group>"; };
-		C3B029D5EC7A25223D95E29B /* Pods_FitForm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FitForm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E8AFB8BE3F257AFBD0DE5CF3 /* Pods-FitForm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FitForm.debug.xcconfig"; path = "Target Support Files/Pods-FitForm/Pods-FitForm.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,29 +50,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE546AA1226E794D9C0D4D0B /* Pods_FitForm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		132A83F00DC3B85BC857FD9C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C3B029D5EC7A25223D95E29B /* Pods_FitForm.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		5988B2CA28B077A500B0DA4E = {
 			isa = PBXGroup;
 			children = (
 				835C286E28B0B3D7002662F8 /* APIConstruct.swift */,
 				5988B2D528B077A500B0DA4E /* FitForm */,
 				5988B2D428B077A500B0DA4E /* Products */,
-				A90F8B09BB8FB06793DC6D62 /* Pods */,
-				132A83F00DC3B85BC857FD9C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,7 +91,6 @@
 				5988B2EE28B0B24A00B0DA4E /* RegisterView.swift */,
 				5988B2F328B195BA00B0DA4E /* WorkoutView.swift */,
 				5988B2F728B19E0500B0DA4E /* WorkoutController.swift */,
-				835C287028B1CA9F002662F8 /* StatisticsView.swift */,
 			);
 			path = FitForm;
 			sourceTree = "<group>";
@@ -121,15 +103,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A90F8B09BB8FB06793DC6D62 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E8AFB8BE3F257AFBD0DE5CF3 /* Pods-FitForm.debug.xcconfig */,
-				82DDDB43702B56743441BA48 /* Pods-FitForm.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -137,11 +110,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5988B2E128B077A600B0DA4E /* Build configuration list for PBXNativeTarget "FitForm" */;
 			buildPhases = (
-				65180392228F08FFB0DD2D37 /* [CP] Check Pods Manifest.lock */,
 				5988B2CF28B077A500B0DA4E /* Sources */,
 				5988B2D028B077A500B0DA4E /* Frameworks */,
 				5988B2D128B077A500B0DA4E /* Resources */,
-				24984DE97D7495319A7D3047 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,48 +168,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		24984DE97D7495319A7D3047 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FitForm/Pods-FitForm-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FitForm/Pods-FitForm-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FitForm/Pods-FitForm-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		65180392228F08FFB0DD2D37 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FitForm-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		5988B2CF28B077A500B0DA4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -249,7 +178,6 @@
 				5988B2E928B0904E00B0DA4E /* SelectWorkoutView.swift in Sources */,
 				5988B2E728B0808900B0DA4E /* HomeView.swift in Sources */,
 				5988B2F828B19E0500B0DA4E /* WorkoutController.swift in Sources */,
-				835C287128B1CA9F002662F8 /* StatisticsView.swift in Sources */,
 				5988B2EF28B0B24A00B0DA4E /* RegisterView.swift in Sources */,
 				5988B2D928B077A500B0DA4E /* ContentView.swift in Sources */,
 				5988B2EB28B091BA00B0DA4E /* LoginView.swift in Sources */,
@@ -382,7 +310,6 @@
 		};
 		5988B2E228B077A600B0DA4E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8AFB8BE3F257AFBD0DE5CF3 /* Pods-FitForm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -413,7 +340,6 @@
 		};
 		5988B2E328B077A600B0DA4E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 82DDDB43702B56743441BA48 /* Pods-FitForm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
