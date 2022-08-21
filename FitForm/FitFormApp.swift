@@ -11,7 +11,7 @@ import SwiftUI
 struct FitFormApp: App {
     var body: some Scene {
         WindowGroup {
-            LoginView()
+            SplashView()
 //            ZStack{
 //
 //                ARViewContainer().edgesIgnoringSafeArea(.all)
