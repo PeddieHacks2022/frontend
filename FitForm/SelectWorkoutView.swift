@@ -81,7 +81,7 @@ struct SelectWorkoutView: View {
     @State private var routineName = ""
     @State private var selectedWorkouts: [String] = []
 
-    var workoutTypes = ["Bicep Curl", "Left Bicep Curl", "Alternating Bicep Curl", "Right Bicep Curl", "Jumping Jacks", "Push Up", "Sit Up"]
+    var workoutTypes = ["Bicep Curl", "Left Bicep Curl", "Right Bicep Curl", "Overhead Press", "Left Overhead Press", "Right Overhead Press"]
 
     var body: some View {
         VStack {

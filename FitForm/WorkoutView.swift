@@ -8,23 +8,24 @@
 import AVKit
 import SwiftUI
 struct WorkoutView: View {
+    @State var redirect = false
+
     var body: some View {
         ZStack {
             ARViewContainer().edgesIgnoringSafeArea(.all)
             Text(String(controller.reps))
         }
 
-        NavigationLink(destination: HomeView()) {
+        Button(action: {
+            redirect = true
+            controller.complete = true
+        }) {
             Text("Finish")
-                .padding()
-                .foregroundColor(.white)
-                .frame(width: 300, height: 50)
-                .contentShape(Rectangle())
-                .background(Color.blue)
-                .cornerRadius(10)
-                .onTapGesture {
-                    controller.complete = true
-                }
+                .font(.headline)
+                .fontWeight(.bold)
+        }.buttonStyle(.plain)
+        NavigationLink(destination: HomeView(), isActive: $redirect) {
+            EmptyView()
         }
     }
 }
