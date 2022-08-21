@@ -17,6 +17,7 @@ class APIConstruct {
     var sessionID = -1
 
     var workoutId = -1
+    var isRoutine = 0
 
     func initialize() {
         connectToUDP(hostUDP, portUDP)
@@ -24,7 +25,7 @@ class APIConstruct {
 
     func connectToUDP(_ hostUDP: NWEndpoint.Host, _ portUDP: NWEndpoint.Port) {
         // Transmited message:
-        let messageToUDP = String(sessionID) + " " + String(workoutId)
+        let messageToUDP = String(sessionID) + " " + String(isRoutine) + " " + String(workoutId)
 
         connection = NWConnection(host: hostUDP, port: portUDP, using: .udp)
 
@@ -239,13 +240,15 @@ class APIConstruct {
         return finalResult
     }
 
-    func getRoutines() async {
+    func getRoutines() async -> [RoutineRequest] {
         let url = URL(string: host + "/user/" + String(sessionID) + "/routine")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
 
-        /* var finalResult: RoutineRequest = []; */
+        var finalResult: [RoutineRequest] = []
+        let semaphore = DispatchSemaphore(value: 0)
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error took place \(error)")
@@ -257,18 +260,18 @@ class APIConstruct {
             let decoder = JSONDecoder()
 
             do {
-                let result = try decoder.decode(RoutineRequest.self, from: data!)
+                let result = try decoder.decode([RoutineRequest].self, from: data!)
                 print(result)
+                finalResult = result
+                semaphore.signal()
             } catch {
                 print(error.localizedDescription)
+                semaphore.signal()
             }
         }
         task.resume()
-    }
-
-    struct RoutinePostBody: Encodable {
-        var name: String
-        var workoutIDs: [String]
+        semaphore.wait()
+        return finalResult
     }
 
     func createRoutine(body: RoutinePostBody) async {

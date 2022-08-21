@@ -25,7 +25,12 @@ struct WorkoutRequest: Decodable, Hashable {
     var createdDate: String
 }
 
-typealias RoutineRequest = [String: [WorkoutRequest]]
+struct RoutineRequest: Decodable {
+    var id: Int
+    var name: String
+    var workouts: [WorkoutRequest]
+}
+
 class WorkoutTemplate: Codable {
     var name: String
     var repCount: Int
@@ -56,7 +61,8 @@ class WorkoutTemplate: Codable {
 }
 
 struct SelectWorkoutView: View {
-    @State private var workoutList: [WorkoutRequest] = [WorkoutRequest(id: 30_535_572, name: "X", workoutType: "Curl", reps: 44, createdDate: "2022-08-20 17:48:54.765379")]
+    @State private var workoutList: [WorkoutRequest] = []
+    @State private var routineList: [RoutineRequest] = []
     @State private var redirect: Bool = false
     @State private var workoutMode: WorkoutMode = .routine
 
@@ -192,38 +198,73 @@ struct SelectWorkoutView: View {
                 Text("Workout").tag(WorkoutMode.workout)
                 Text("Routine").tag(WorkoutMode.routine)
             }.pickerStyle(.segmented)
-            VStack {
-                ForEach(workoutList, id: \.id) { workout in
-                    Button(action: {
-                        print(workout.id)
-                        construct.workoutId = workout.id
-                        construct.initialize()
-                        controller.initialize()
-                        redirect = true
-                    }) {
-                        HStack {
-                            VStack {
+
+            if workoutMode == WorkoutMode.workout {
+                VStack {
+                    List {
+                        ForEach(workoutList, id: \.id) { workout in
+                            Button(action: {
+                                print(workout.id)
+                                construct.workoutId = workout.id
+                                construct.isRoutine = 0
+                                construct.initialize()
+                                controller.initialize()
+                                redirect = true
+                            }) {
                                 Text(workout.name)
                                     .font(.headline)
                                     .fontWeight(.bold)
                                     .multilineTextAlignment(.leading)
-                                Text("# of Reps: " + String(workout.reps))
-                                    .fontWeight(.thin)
-                                    .multilineTextAlignment(.leading)
+                                /*
+                                 HStack {
+                                     VStack {
+                                         Text(workout.name)
+                                             .font(.headline)
+                                             .fontWeight(.bold)
+                                             .multilineTextAlignment(.leading)
+                                         Text("# of Reps: " + String(workout.reps))
+                                             .fontWeight(.thin)
+                                             .multilineTextAlignment(.leading)
+                                     }
+                                     Spacer()
+                                     Text("Insert Image")
+                                 .padding(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/)
+                                 */
+                            }.buttonStyle(.plain)
+                            NavigationLink(destination: WorkoutView(), isActive: $redirect) {
+                                EmptyView()
                             }
-                            Spacer()
-                            Text(workout.workoutType)
                         }
-                        .padding(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/).border(.orange, width: 2)
-                    }.buttonStyle(.plain)
-                    NavigationLink(destination: WorkoutView(), isActive: $redirect) {
-                        EmptyView()
+                    }
+                }
+            } else {
+                VStack {
+                    List {
+                        ForEach(routineList, id: \.id) { routine in
+                            Button(action: {
+                                print(routine.id)
+                                construct.workoutId = routine.id
+                                construct.isRoutine = 1
+                                construct.initialize()
+                                controller.initialize()
+                                redirect = true
+                            }) {
+                                Text(routine.name)
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.leading)
+                            }.buttonStyle(.plain)
+                            NavigationLink(destination: WorkoutView(), isActive: $redirect) {
+                                EmptyView()
+                            }
+                        }
                     }
                 }
             }
             Spacer()
         }.onAppear {
             getWorkouts()
+            getRoutines()
             redirect = false
         }
     }
@@ -232,6 +273,13 @@ struct SelectWorkoutView: View {
         Task {
             workoutList = await construct.getWorkouts()
             print(workoutList)
+        }
+    }
+
+    func getRoutines() {
+        Task {
+            routineList = await construct.getRoutines()
+            print(routineList)
         }
     }
 
