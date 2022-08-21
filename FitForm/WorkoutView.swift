@@ -22,6 +22,9 @@ struct WorkoutView: View {
                 .contentShape(Rectangle())
                 .background(Color.blue)
                 .cornerRadius(10)
+                .onTapGesture {
+                    controller.complete = true
+                }
         }
     }
 }

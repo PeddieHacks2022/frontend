@@ -210,6 +210,8 @@ struct SelectWorkoutView: View {
                                 construct.isRoutine = 0
 
                                 redirect = true
+                                construct.initialize()
+                                controller.initialize()
                             }) {
                                 Text(workout.name)
                                     .font(.headline)
@@ -244,6 +246,8 @@ struct SelectWorkoutView: View {
                                 construct.isRoutine = 1
 
                                 redirect = true
+                                construct.initialize()
+                                controller.initialize()
                             }) {
                                 Text(routine.name)
                                     .font(.headline)
@@ -296,6 +300,7 @@ struct SelectWorkoutView: View {
     func createRoutine() {
         Task {
             await construct.createRoutine(body: RoutinePostBody(name: routineName, workoutIDs: selectedWorkouts))
+            getRoutines()
             createPopup = false
             createRoutinePopup = false
         }

@@ -16,6 +16,7 @@ class WorkoutController {
     var complete = false
 
     func initialize() {
+        complete = false
         audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: dingSound!))
     }
 
@@ -28,16 +29,15 @@ class WorkoutController {
                 }
 
                 var change = data["change"] as! String
-
+                var reps = data["reps"] as? Int
                 if change == "up" {
-                    reps += 1
-                    speak(sentence: String(reps))
+                    speak(sentence: String(reps!))
                 } else if change == "down" {
-                } else if change == "bad form" {
+                } else if change == "message" {
                     speak(sentence: data["details"] as! String)
                 } else if change == "complete" {
-                    speak(sentence: "Completed")
                     complete = true
+                    speak(sentence: "Good Job")
                 }
             }
         }
